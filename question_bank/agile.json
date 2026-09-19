@@ -1,0 +1,286 @@
+{
+  "metadata": {
+    "domain": "Agile",
+    "description": "Original AI-generated practice questions covering the Agile/Adaptive domain: Scrum, Kanban, Lean, XP, hybrid approaches, and agile principles. NOT official PMI exam questions.",
+    "source_type": "ai_generated",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "AGILE-001",
+      "domain": "Agile",
+      "topic": "Scrum Roles",
+      "difficulty": "easy",
+      "type": "knowledge",
+      "question": "Who is primarily responsible for maximizing the value of the product and managing the product backlog in Scrum?",
+      "options": {
+        "A": "Scrum Master",
+        "B": "Development Team",
+        "C": "Product Owner",
+        "D": "Project Sponsor"
+      },
+      "correct_answer": "C",
+      "explanation": "The Product Owner owns the product backlog, defines priorities, and represents the voice of the customer/stakeholder to maximize product value.",
+      "why_others_are_wrong": {
+        "A": "The Scrum Master is a servant leader focused on facilitating the Scrum process and removing impediments, not backlog management.",
+        "B": "The Development Team executes the work but does not own backlog prioritization.",
+        "D": "Project Sponsor is not a standard Scrum role; sponsors provide funding/support but don't manage the backlog."
+      },
+      "concept_tested": "Scrum roles and responsibilities",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-002",
+      "domain": "Agile",
+      "topic": "Scrum Ceremonies",
+      "difficulty": "medium",
+      "type": "scenario",
+      "question": "A team just finished a two-week sprint and gathers to discuss what went well, what didn't, and how to improve their process for the next sprint. Which Scrum event is this?",
+      "options": {
+        "A": "Sprint Planning",
+        "B": "Daily Scrum",
+        "C": "Sprint Review",
+        "D": "Sprint Retrospective"
+      },
+      "correct_answer": "D",
+      "explanation": "The Sprint Retrospective is where the team reflects on their process (not the product) and identifies improvements for future sprints.",
+      "why_others_are_wrong": {
+        "A": "Sprint Planning happens at the start of a sprint to plan the work, not to reflect on completed work.",
+        "B": "Daily Scrum is a brief daily sync about progress and blockers, not a process reflection meeting.",
+        "C": "Sprint Review focuses on demonstrating the product increment to stakeholders, not team process improvement."
+      },
+      "concept_tested": "Sprint Retrospective vs other Scrum ceremonies",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-003",
+      "domain": "Agile",
+      "topic": "Kanban",
+      "difficulty": "medium",
+      "type": "scenario",
+      "question": "A support team notices their 'In Progress' column often has 15+ items, causing frequent context-switching and delays. Which Kanban principle should they apply to address this?",
+      "options": {
+        "A": "Increase sprint length",
+        "B": "Limit Work in Progress (WIP)",
+        "C": "Add more Scrum ceremonies",
+        "D": "Switch to Waterfall methodology"
+      },
+      "correct_answer": "B",
+      "explanation": "Limiting Work in Progress (WIP) is a core Kanban principle that prevents overloading the team, reduces context-switching, and improves flow by capping how many items can be 'in progress' at once.",
+      "why_others_are_wrong": {
+        "A": "Kanban is not sprint-based (that's a Scrum concept), so 'sprint length' doesn't directly apply.",
+        "C": "Kanban does not prescribe Scrum ceremonies; adding them is unrelated to solving a WIP overload issue.",
+        "D": "Switching to Waterfall would not directly address a workflow/flow issue and removes the flexibility Kanban offers."
+      },
+      "concept_tested": "Kanban WIP limits principle",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-004",
+      "domain": "Agile",
+      "topic": "Agile Principles",
+      "difficulty": "easy",
+      "type": "knowledge",
+      "question": "According to the Agile Manifesto, which of the following is valued MORE than 'comprehensive documentation'?",
+      "options": {
+        "A": "Following a plan",
+        "B": "Contract negotiation",
+        "C": "Working software",
+        "D": "Processes and tools"
+      },
+      "correct_answer": "C",
+      "explanation": "The Agile Manifesto states: 'Working software over comprehensive documentation' — meaning working software is valued more, while documentation still has value.",
+      "why_others_are_wrong": {
+        "A": "'Following a plan' is paired against 'responding to change' in the Manifesto, not documentation.",
+        "B": "'Contract negotiation' is paired against 'customer collaboration' in the Manifesto.",
+        "D": "'Processes and tools' is paired against 'individuals and interactions,' not documentation."
+      },
+      "concept_tested": "Agile Manifesto values",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-005",
+      "domain": "Agile",
+      "topic": "Servant Leadership",
+      "difficulty": "medium",
+      "type": "scenario",
+      "question": "During a sprint, the development team is blocked because IT hasn't provisioned a needed test environment. What should the Scrum Master do?",
+      "options": {
+        "A": "Wait for the Product Owner to resolve the issue",
+        "B": "Assign the blocked task to a different team member",
+        "C": "Actively work to remove this impediment, such as escalating to IT",
+        "D": "Ignore it since IT provisioning isn't part of the sprint"
+      },
+      "correct_answer": "C",
+      "explanation": "A core responsibility of the Scrum Master as a servant leader is to actively remove impediments blocking the team's progress, which includes escalating cross-team dependencies like IT provisioning.",
+      "why_others_are_wrong": {
+        "A": "Impediment removal is the Scrum Master's responsibility, not the Product Owner's, who focuses on the backlog/value.",
+        "B": "Reassigning the task doesn't resolve the underlying environment blocker.",
+        "D": "Impediments blocking the team's sprint work are squarely the Scrum Master's concern regardless of source."
+      },
+      "concept_tested": "Scrum Master's role in impediment removal",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-006",
+      "domain": "Agile",
+      "topic": "Estimation",
+      "difficulty": "medium",
+      "type": "scenario",
+      "question": "A Scrum team uses a technique where each member privately selects a numbered card representing their estimate of a user story's effort, then reveals cards simultaneously to avoid anchoring bias. What is this technique called?",
+      "options": {
+        "A": "Affinity Estimating",
+        "B": "T-Shirt Sizing",
+        "C": "Planning Poker",
+        "D": "Three-Point Estimating"
+      },
+      "correct_answer": "C",
+      "explanation": "Planning Poker is an estimation technique where team members simultaneously reveal numbered cards (often Fibonacci sequence) to estimate story points, preventing anchoring bias from hearing others' estimates first.",
+      "why_others_are_wrong": {
+        "A": "Affinity Estimating groups similar-sized items together without cards, a different technique.",
+        "B": "T-Shirt Sizing uses relative sizes (XS, S, M, L, XL) rather than numbered cards revealed simultaneously.",
+        "D": "Three-Point Estimating is a predictive technique using optimistic/pessimistic/most likely values, not a card-based simultaneous reveal method."
+      },
+      "concept_tested": "Planning Poker estimation technique",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-007",
+      "domain": "Agile",
+      "topic": "Definition of Done",
+      "difficulty": "easy",
+      "type": "knowledge",
+      "question": "What is the purpose of a 'Definition of Done' (DoD) in Scrum?",
+      "options": {
+        "A": "To list all features that will never be built",
+        "B": "To provide agreed-upon criteria that determine when a work item is truly complete",
+        "C": "To define the end date of the entire project",
+        "D": "To replace the need for a Product Backlog"
+      },
+      "correct_answer": "B",
+      "explanation": "The Definition of Done is a shared, agreed-upon set of criteria a product increment must meet to be considered complete, ensuring consistency and quality across the team's output.",
+      "why_others_are_wrong": {
+        "A": "DoD is about completion criteria for work done, not about excluded features (that's the backlog or 'won't do' list).",
+        "C": "DoD applies to individual work items/increments, not the entire project's end date.",
+        "D": "DoD is a complement to the Product Backlog, not a replacement for it."
+      },
+      "concept_tested": "Definition of Done purpose",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-008",
+      "domain": "Agile",
+      "topic": "Velocity",
+      "difficulty": "medium",
+      "type": "scenario",
+      "question": "A Scrum team completed 25, 30, and 28 story points in their last three sprints respectively. What does this data help the team estimate?",
+      "options": {
+        "A": "The exact date the project will be 100% complete",
+        "B": "Their velocity, useful for forecasting how much work they can complete in future sprints",
+        "C": "The team's individual performance ratings",
+        "D": "The total project budget"
+      },
+      "correct_answer": "B",
+      "explanation": "Velocity is the amount of work (measured in story points) a team completes per sprint. Tracking it over multiple sprints helps forecast capacity for future sprint planning.",
+      "why_others_are_wrong": {
+        "A": "Velocity helps forecast capacity but doesn't give an exact completion date given the empirical, probabilistic nature of agile estimation.",
+        "C": "Velocity is a team-level metric, not intended for individual performance evaluation — using it this way is a common anti-pattern.",
+        "D": "Velocity relates to work throughput, not directly to budget, though it can inform cost forecasting indirectly."
+      },
+      "concept_tested": "Velocity as a forecasting metric",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-009",
+      "domain": "Agile",
+      "topic": "Hybrid Approaches",
+      "difficulty": "hard",
+      "type": "scenario",
+      "question": "A construction company must follow strict regulatory documentation and predictive procurement processes but wants to use iterative design reviews with the client to refine architectural details as work progresses. Which approach best fits this situation?",
+      "options": {
+        "A": "Pure Scrum framework",
+        "B": "Pure Waterfall/predictive approach only",
+        "C": "A hybrid approach combining predictive processes for regulated activities with agile/iterative elements for design",
+        "D": "Kanban exclusively, since regulation doesn't matter"
+      },
+      "correct_answer": "C",
+      "explanation": "A hybrid approach allows organizations to use predictive methods where required (e.g., regulatory documentation, procurement) while applying agile/iterative techniques where flexibility and client feedback add value (e.g., design refinement).",
+      "why_others_are_wrong": {
+        "A": "Pure Scrum would not adequately address the strict regulatory/predictive procurement needs described.",
+        "B": "A purely predictive approach would miss the benefit of iterative client feedback on design elements.",
+        "D": "Kanban alone ignores the stated regulatory documentation requirements, which need predictive rigor."
+      },
+      "concept_tested": "When and how to apply hybrid approaches",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-010",
+      "domain": "Agile",
+      "topic": "User Stories",
+      "difficulty": "easy",
+      "type": "knowledge",
+      "question": "Which of the following is the correct format for a well-structured user story?",
+      "options": {
+        "A": "As a [role], I want [feature], so that [benefit]",
+        "B": "Given [context], When [action], Then [outcome]",
+        "C": "Task: [name], Owner: [person], Deadline: [date]",
+        "D": "Risk: [description], Impact: [level], Response: [strategy]"
+      },
+      "correct_answer": "A",
+      "explanation": "The standard user story format is 'As a [role], I want [feature], so that [benefit]' — capturing who needs it, what they need, and why it matters.",
+      "why_others_are_wrong": {
+        "B": "This is the Gherkin format typically used for acceptance criteria/test scenarios (BDD), not the user story itself.",
+        "C": "This resembles a task assignment format, not a user story capturing user value.",
+        "D": "This is a risk register entry format, unrelated to user stories."
+      },
+      "concept_tested": "User story format",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-011",
+      "domain": "Agile",
+      "topic": "Backlog Refinement",
+      "difficulty": "medium",
+      "type": "scenario",
+      "question": "Throughout the sprint, the Product Owner and team periodically review upcoming backlog items, clarify requirements, and estimate story points for items not yet fully detailed. What activity is this?",
+      "options": {
+        "A": "Sprint Review",
+        "B": "Daily Scrum",
+        "C": "Backlog Refinement (Grooming)",
+        "D": "Sprint Retrospective"
+      },
+      "correct_answer": "C",
+      "explanation": "Backlog Refinement (also called grooming) is the ongoing process of reviewing and updating backlog items — adding detail, estimates, and order — to keep the backlog ready for future sprint planning.",
+      "why_others_are_wrong": {
+        "A": "Sprint Review is for demonstrating completed work to stakeholders, not for detailing future backlog items.",
+        "B": "Daily Scrum is a short daily status sync, not focused on backlog detail work.",
+        "D": "Sprint Retrospective reflects on team process, not backlog content."
+      },
+      "concept_tested": "Backlog refinement activity",
+      "source": "original"
+    },
+    {
+      "id": "AGILE-012",
+      "domain": "Agile",
+      "topic": "Adaptive Life Cycle",
+      "difficulty": "medium",
+      "type": "knowledge",
+      "question": "Why do adaptive (agile) life cycles typically favor short iterations with frequent stakeholder feedback?",
+      "options": {
+        "A": "To reduce the number of meetings required overall",
+        "B": "To allow requirements to emerge and be validated early, reducing risk of building the wrong thing",
+        "C": "Because regulatory bodies require it",
+        "D": "To eliminate the need for a product backlog"
+      },
+      "correct_answer": "B",
+      "explanation": "Short iterations and frequent feedback loops let teams validate assumptions early and adjust direction, reducing the risk of investing significant effort in a solution that doesn't meet actual needs.",
+      "why_others_are_wrong": {
+        "A": "Agile actually involves frequent ceremonies/meetings (standups, reviews, retrospectives), not fewer.",
+        "C": "Short iterations are a methodology choice, not typically a regulatory mandate.",
+        "D": "The product backlog remains a core artifact in adaptive life cycles; it isn't eliminated."
+      },
+      "concept_tested": "Rationale for adaptive/iterative delivery",
+      "source": "original"
+    }
+  ]
+}
