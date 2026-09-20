@@ -1,4 +1,8 @@
-"""Shared test helpers. All learner data goes to a temp dir via CAPM_DATA_DIR."""
+"""Shared test helpers. All learner data goes to a temp dir via CAPM_DATA_DIR.
+
+Subprocess runs never inherit the developer answer-key opt-in unless a test asks for it
+with reveal=True, so the default matches what the tutor sees.
+"""
 
 import json
 import os
@@ -33,11 +37,22 @@ class TempDataCase(unittest.TestCase):
         self._tmp.cleanup()
 
 
-def run_cli(script, *args, stdin=None, data_dir=None):
-    """Run a tools/ script. Returns (exit_code, stdout, stderr)."""
+def run_cli(script, *args, stdin=None, data_dir=None, reveal=False, env_extra=None, binary_stdin=None):
+    """Run a tools/ script (argv list, never a shell). Returns (exit_code, stdout, stderr)."""
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
+    env.pop("CAPM_ALLOW_REVEAL_ANSWERS", None)
+    if reveal:
+        env["CAPM_ALLOW_REVEAL_ANSWERS"] = "1"
     if data_dir is not None:
         env["CAPM_DATA_DIR"] = str(data_dir)
+    if env_extra:
+        env.update(env_extra)
+    if binary_stdin is not None:
+        proc = subprocess.run(
+            [sys.executable, str(TOOLS / script), *args],
+            input=binary_stdin, capture_output=True, env=env, cwd=str(ROOT),
+        )
+        return proc.returncode, proc.stdout.decode("utf-8", "replace"), proc.stderr.decode("utf-8", "replace")
     proc = subprocess.run(
         [sys.executable, str(TOOLS / script), *args],
         input=stdin, capture_output=True, text=True, env=env, cwd=str(ROOT),
@@ -45,9 +60,9 @@ def run_cli(script, *args, stdin=None, data_dir=None):
     return proc.returncode, proc.stdout, proc.stderr
 
 
-def run_json(script, *args, stdin=None, data_dir=None):
+def run_json(script, *args, **kwargs):
     """Run a tools/ script and parse its stdout as JSON. Returns (exit_code, parsed)."""
-    code, out, err = run_cli(script, *args, stdin=stdin, data_dir=data_dir)
+    code, out, err = run_cli(script, *args, **kwargs)
     try:
         return code, json.loads(out)
     except json.JSONDecodeError:

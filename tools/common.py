@@ -11,6 +11,7 @@ Set the CAPM_DATA_DIR environment variable to redirect all learner data
 import json
 import os
 import random
+import re
 from pathlib import Path
 
 import taxonomy
@@ -34,6 +35,93 @@ class ProgressError(Exception):
     """Learner progress data could not be read safely."""
 
 
+# --- untrusted-input limits ------------------------------------------------------
+# Text that reaches these tools may originate from the student or from pasted
+# documents. It is treated strictly as data: bounded, stripped of invisible/control
+# characters, and never interpreted (there is no shell, eval or exec in tools/).
+
+MAX_QUESTIONS = 1000        # per quiz/mock request
+MAX_INPUT_CHARS = 1_000_000  # per JSON input read from a file or stdin
+MAX_NOTE_CHARS = 500         # free-text session notes
+MAX_QUERY_CHARS = 100        # topic / domain filters
+MAX_WEEKS = 104              # study-plan limits
+MAX_HOURS_PER_WEEK = 168
+REVEAL_ENV = "CAPM_ALLOW_REVEAL_ANSWERS"  # developer-only opt-in for answer-key output
+
+# ASCII/C1 control characters (keeps \t and \n), zero-width, bidi-override and BOM characters.
+_UNSAFE_CHARS = re.compile(
+    "[\x00-\x08\x0b-\x1f\x7f-\x9f​-‏‪-‮⁠-⁤⁦-⁩﻿]"
+)
+
+
+def has_unsafe_chars(value):
+    return bool(_UNSAFE_CHARS.search(str(value)))
+
+
+def clean_text(value, max_len=200):
+    """Strip control/zero-width/bidi characters and cap the length."""
+    return _UNSAFE_CHARS.sub("", str(value))[:max_len]
+
+
+def shown(value, max_len=60):
+    """Short, single-line, printable form of untrusted text for use in messages."""
+    text = " ".join(clean_text(value, max_len + 1).split())
+    return text if len(text) <= max_len else text[:max_len] + "..."
+
+
+def check_query_text(name, value):
+    """Validate a free-text filter (topic/domain). Raises ValueError if unusable."""
+    if value is None:
+        return
+    if len(value) > MAX_QUERY_CHARS or has_unsafe_chars(value):
+        raise ValueError(f"--{name} must be at most {MAX_QUERY_CHARS} printable characters.")
+
+
+def check_question_count(count, name="count"):
+    if count <= 0:
+        raise ValueError(f"{name} must be a positive integer.")
+    if count > MAX_QUESTIONS:
+        raise ValueError(f"{name} must be at most {MAX_QUESTIONS}.")
+
+
+def reveal_allowed():
+    """Answer-key output (--reveal-answers) is a developer opt-in, never part of tutoring."""
+    return os.environ.get(REVEAL_ENV) == "1"
+
+
+def reject_protected_path(path):
+    """Refuse to read session files or the question bank through a generic --input option.
+
+    Paths are resolved first, so symlinks and ../ tricks that end up inside a protected
+    directory are refused too.
+    """
+    resolved = Path(path).expanduser().resolve()
+    for protected in (get_sessions_dir().resolve(), QUESTION_BANK_DIR.resolve()):
+        if resolved == protected or protected in resolved.parents:
+            raise ValueError("That path is not readable through this tool.")
+
+
+def read_text_limited(source, max_chars=MAX_INPUT_CHARS):
+    """Read at most max_chars from a file path or file-like object.
+
+    Raises ValueError with a generic message for unreadable, non-text, oversized or
+    protected input, so callers never surface a traceback or file contents.
+    """
+    if isinstance(source, (str, Path)):
+        reject_protected_path(source)
+    try:
+        if isinstance(source, (str, Path)):
+            with open(source, encoding="utf-8") as f:
+                data = f.read(max_chars + 1)
+        else:
+            data = source.read(max_chars + 1)
+    except (OSError, UnicodeDecodeError) as e:
+        raise ValueError(f"Could not read input as UTF-8 text ({type(e).__name__}).") from e
+    if len(data) > max_chars:
+        raise ValueError(f"Input is larger than {max_chars} characters.")
+    return data
+
+
 # --- data locations ----------------------------------------------------------
 
 def get_progress_file():
@@ -53,7 +141,7 @@ def get_sessions_dir():
 def write_json_atomic(path, data):
     """Write JSON to a temp file in the same directory, then atomically replace."""
     path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
+    path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     tmp = path.with_name(f"{path.name}.tmp{os.getpid()}")
     try:
         with open(tmp, "w", encoding="utf-8") as f:
@@ -61,6 +149,7 @@ def write_json_atomic(path, data):
             f.write("\n")
             f.flush()
             os.fsync(f.fileno())
+        os.chmod(tmp, 0o600)  # learner data and answer keys: owner-only
         os.replace(tmp, path)
     finally:
         if tmp.exists():
@@ -81,10 +170,21 @@ def _normalize_question(q):
     return q
 
 
+def _sanitize(value):
+    """Recursively strip control/zero-width/bidi characters from every string in a bank entry."""
+    if isinstance(value, str):
+        return clean_text(value, 10_000)
+    if isinstance(value, list):
+        return [_sanitize(v) for v in value]
+    if isinstance(value, dict):
+        return {k: _sanitize(v) for k, v in value.items()}
+    return value
+
+
 def _read_bank_file(path):
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
-    return [_normalize_question(q) for q in data.get("questions", [])]
+    return [_normalize_question(_sanitize(q)) for q in data.get("questions", [])]
 
 
 def load_all_questions():

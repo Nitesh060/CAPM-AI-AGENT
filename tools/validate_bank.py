@@ -5,6 +5,9 @@ Checks every question_bank/*.json file against the schema in the README and the
 taxonomy in config/taxonomy.json. Exits non-zero if any error is found;
 warnings (e.g. a skewed answer-key distribution) do not fail the run.
 
+Bank text is shown to the tutor as data, so it is also checked structurally:
+no control, zero-width or bidi-override characters (hidden text) and sane length limits.
+
 Usage:
     python tools/validate_bank.py
 """
@@ -14,7 +17,7 @@ import json
 import sys
 
 import taxonomy
-from common import QUESTION_BANK_DIR
+from common import QUESTION_BANK_DIR, has_unsafe_chars
 
 REQUIRED_FIELDS = (
     "id", "domain", "topic", "difficulty", "type", "question", "options",
@@ -24,6 +27,8 @@ DIFFICULTIES = {"easy", "medium", "hard"}
 QUESTION_TYPES = {"knowledge", "scenario"}
 KEY_SKEW_MAX_SHARE = 0.40
 KEY_SKEW_MIN_SAMPLE = 20
+# Generous limits (the current bank's longest fields are under 300 characters).
+LENGTH_LIMITS = {"question": 2000, "option": 600, "explanation": 2500, "why_others_are_wrong": 1000, "concept_tested": 200}
 
 
 def validate_bank(bank_dir=None):
@@ -64,6 +69,20 @@ def validate_bank(bank_dir=None):
             if missing:
                 errors.append(f"{qid}: missing fields {missing}.")
                 continue
+
+            # Bank text is shown to the tutor as data: no hidden characters, bounded length.
+            texts = [("question", q["question"], "question"), ("explanation", q["explanation"], "explanation"),
+                     ("concept_tested", q["concept_tested"], "concept_tested")]
+            texts += [(f"option {k}", v, "option") for k, v in q["options"].items()]
+            texts += [(f"why_others_are_wrong {k}", v, "why_others_are_wrong") for k, v in q["why_others_are_wrong"].items()]
+            for label, text, limit_key in texts:
+                if not isinstance(text, str):
+                    errors.append(f"{qid}: {label} must be text.")
+                    continue
+                if has_unsafe_chars(text):
+                    errors.append(f"{qid}: {label} contains control, zero-width or bidi-override characters.")
+                if len(text) > LENGTH_LIMITS[limit_key]:
+                    errors.append(f"{qid}: {label} is longer than {LENGTH_LIMITS[limit_key]} characters.")
 
             options = q["options"]
             if set(options) != {"A", "B", "C", "D"}:

@@ -2,11 +2,17 @@
   "permissions": {
     "deny": [
       "Read(./data/sessions/**)",
-      "Bash(cat data/sessions/*)",
-      "Bash(head data/sessions/*)",
-      "Bash(tail data/sessions/*)",
-      "Bash(grep * data/sessions/*)",
-      "Bash(jq * data/sessions/*)"
+      "Read(./question_bank/**)",
+      "Edit(./data/sessions/**)",
+      "Edit(./data/student_progress.json)",
+      "Bash(*data/sessions*)",
+      "Bash(*sessions/*)",
+      "Bash(*question_bank*)",
+      "Bash(*--reveal-answers*)",
+      "Bash(*CAPM_ALLOW_REVEAL*)",
+      "Bash(printenv*)",
+      "Bash(env)",
+      "Bash(env *)"
     ]
   }
 }

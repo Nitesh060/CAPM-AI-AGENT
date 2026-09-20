@@ -380,12 +380,15 @@ class TestBackwardCompatibleCLIs(TempDataCase):
     def test_quiz_engine_examples(self):
         for args in (["--topic", "agile", "--count", "10"], ["--topic", "schedule management", "--count", "10"],
                      ["--difficulty", "hard", "--count", "20"], ["--domain", "predictive", "--count", "10"],
-                     ["--domain", "agile", "--count", "5", "--no-shuffle"], ["--count", "10", "--reveal-answers"]):
+                     ["--domain", "agile", "--count", "5", "--no-shuffle"]):
             code, quiz = self.cli("quiz_engine.py", *args)
             self.assertEqual(code, 0, args)
             self.assertGreaterEqual(quiz["quiz_size"], 1)
             for key in ("quiz_size", "requested_count", "filters", "questions"):
                 self.assertIn(key, quiz)
+        # --reveal-answers still works, but only with the explicit developer opt-in (see test_security.py)
+        code, quiz = run_json("quiz_engine.py", "--count", "10", "--reveal-answers", data_dir=self.data_dir, reveal=True)
+        self.assertEqual((code, quiz["quiz_size"]), (0, 10))
 
     def test_mock_exam_output_keys(self):
         code, exam = self.cli("mock_exam.py", "--questions", "20", "--seed", "42")
@@ -431,10 +434,18 @@ class TestBackwardCompatibleCLIs(TempDataCase):
         self.assertIn("usage", out.lower())
 
 
+def _real_session_files():
+    real_sessions = ROOT / "data" / "sessions"
+    return sorted(p.name for p in real_sessions.glob("*.json")) if real_sessions.exists() else []
+
+
+_REAL_SESSIONS_BEFORE_TESTS = _real_session_files()  # snapshot taken when the module is imported, before any test runs
+
+
 class TestRealDataUntouched(unittest.TestCase):
-    def test_test_suite_did_not_create_real_sessions(self):
-        real_sessions = ROOT / "data" / "sessions"
-        self.assertFalse(real_sessions.exists() and any(real_sessions.glob("*.json")))
+    def test_test_suite_did_not_touch_real_sessions(self):
+        # Compares against a snapshot so real tutoring sessions (git-ignored) never make this fail.
+        self.assertEqual(_real_session_files(), _REAL_SESSIONS_BEFORE_TESTS)
 
 
 if __name__ == "__main__":

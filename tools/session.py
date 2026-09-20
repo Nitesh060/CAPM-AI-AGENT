@@ -23,6 +23,9 @@ Usage:
 Note: the answer key sits in the session file on disk. That prevents accidental
 leaks and mis-grading; it is not a security boundary against someone who
 deliberately opens the file. Tutors must never read data/sessions/.
+
+All arguments are treated as untrusted data: bounded, validated, never executed.
+See SECURITY.md.
 """
 
 import argparse
@@ -39,11 +42,14 @@ import selector
 import taxonomy
 from common import (
     ProgressError,
+    check_query_text,
+    check_question_count,
     filter_questions,
     get_sessions_dir,
     load_all_questions,
     load_progress,
     randomize_options,
+    shown,
     strip_answers,
     write_json_atomic,
 )
@@ -69,7 +75,7 @@ def _now():
 
 def _path(session_id):
     if not isinstance(session_id, str) or not SESSION_ID_RE.match(session_id):
-        raise SessionError(f"Invalid session id {session_id!r}.")
+        raise SessionError(f"Invalid session id {shown(session_id)!r}.")
     return get_sessions_dir() / f"{session_id}.json"
 
 
@@ -114,8 +120,15 @@ def start_session(mode="quiz", count=10, topic=None, domain=None, difficulty=Non
                   adaptive=False, seed=None, shuffle_options=True, allow_repeats=False):
     if mode not in MODES:
         raise SessionError(f"mode must be one of {', '.join(MODES)}.")
-    if count <= 0:
-        raise SessionError("count must be a positive integer.")
+    try:
+        check_question_count(count)
+        check_query_text("topic", topic)
+        check_query_text("domain", domain)
+    except ValueError as e:
+        raise SessionError(str(e)) from None
+    # Allowlist, not free text: a topic must be a known topic/alias or domain.
+    if topic and not (taxonomy.canonical_topic(topic) or taxonomy.canonical_domain(topic)):
+        raise SessionError("Unknown topic. Use a topic or domain listed by 'python tools/quiz_engine.py --list-topics'.")
 
     warnings = []
     if mode == "mock":
@@ -134,7 +147,7 @@ def start_session(mode="quiz", count=10, topic=None, domain=None, difficulty=Non
         disclaimer = MOCK_DISCLAIMER + " " + exam["distribution_basis"]
     else:
         if domain and not taxonomy.canonical_domain(domain):
-            raise SessionError(f"Unknown domain {domain!r}. Valid: {', '.join(taxonomy.practice_domains())}.")
+            raise SessionError(f"Unknown domain {shown(domain)!r}. Valid: {', '.join(taxonomy.practice_domains())}.")
         if adaptive:
             pool = filter_questions(load_all_questions(), topic=topic, domain=domain, difficulty=difficulty)
             if not pool:
@@ -240,7 +253,7 @@ def submit_answer(session_id, choice, question_id=None):
 
     match = CHOICE_RE.match(choice or "")
     if not match:
-        raise SessionError(f"Invalid choice {choice!r}; use a single option letter such as B.")
+        raise SessionError(f"Invalid choice {shown(choice)!r}; use a single option letter such as B.")
     letter = match.group(1).upper()
 
     current_id = questions[index]["id"] if index < len(questions) else None
@@ -249,7 +262,7 @@ def submit_answer(session_id, choice, question_id=None):
         if index > 0 and answers[-1]["question_id"] == question_id and question_id != current_id:
             return _feedback(session, index - 1, already_answered=True)
         if question_id != current_id:
-            raise SessionError(f"Question mismatch: the current question is {current_id}, not {question_id}.")
+            raise SessionError(f"Question mismatch: the current question is {current_id}, not {shown(question_id)}.")
     if index >= len(questions):
         raise SessionError("All questions are already answered. Run finish.")
 

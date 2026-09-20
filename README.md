@@ -111,7 +111,7 @@ python tools/quiz_engine.py --difficulty hard --count 20
 python tools/quiz_engine.py --domain predictive --count 10
 ```
 
-By default, correct answers are hidden from the output (safe to hand directly to a student). Add `--reveal-answers` for self-grading or tool-to-tool use.
+Correct answers are hidden from the output (safe to hand directly to a student). `--reveal-answers` prints the answer key, so it is refused unless a developer opt-in is set in your own terminal (see `SECURITY.md`); tutoring never uses it.
 
 ### 2. Score a completed quiz
 
@@ -169,6 +169,10 @@ Open this project in Claude Code. `CLAUDE.md` is loaded automatically and points
 ## Your data
 
 `data/student_progress.json` and `data/sessions/` are personal learner data and are listed in `.gitignore`. `data/student_progress.example.json` is a safe empty template. If `student_progress.json` was committed before this change, run `git rm --cached data/student_progress.json` once so git stops tracking it. Old v1 progress files (`{"sessions": [...]}`) are upgraded to v2 automatically.
+
+## Security
+
+Student text, pasted documents and tool output are treated as untrusted data, and the answer key is protected by code and tool-authorization rules as well as by instructions. This is defence-in-depth, not a guarantee: see [`SECURITY.md`](SECURITY.md) for the layers and their limitations.
 
 ## Important Disclaimers
 

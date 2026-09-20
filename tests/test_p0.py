@@ -106,14 +106,14 @@ class TestQuizEngineCLI(unittest.TestCase):
             self.assertFalse({"correct_answer", "explanation", "why_others_are_wrong", "concept_tested"} & set(q))
 
     def test_answers_revealed_on_request(self):
-        _, quiz = run_json("quiz_engine.py", "--count", "3", "--reveal-answers")
+        _, quiz = run_json("quiz_engine.py", "--count", "3", "--reveal-answers", reveal=True)
         for q in quiz["questions"]:
             self.assertIn("correct_answer", q)
             self.assertIn("explanation", q)
 
     def test_seed_reproducible_and_shuffle_keeps_correct_text(self):
-        _, a = run_json("quiz_engine.py", "--count", "5", "--reveal-answers", "--seed", "1")
-        _, b = run_json("quiz_engine.py", "--count", "5", "--reveal-answers", "--seed", "1")
+        _, a = run_json("quiz_engine.py", "--count", "5", "--reveal-answers", "--seed", "1", reveal=True)
+        _, b = run_json("quiz_engine.py", "--count", "5", "--reveal-answers", "--seed", "1", reveal=True)
         self.assertEqual(a, b)
         originals = {q["id"]: q for q in common.load_all_questions()}
         for q in a["questions"]:

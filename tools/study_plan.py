@@ -8,7 +8,8 @@ additional allocated study/practice time.
 Domains and their order come from config/taxonomy.json (Fundamentals first,
 then Predictive, Agile, Business Analysis). A priority (weakest) domain is
 moved to the front. Note: the priority domain currently changes ordering only;
-it does not yet receive extra weeks.
+it does not yet receive extra weeks. Inputs are bounded (weeks and hours per week
+have upper limits) so a hostile value cannot exhaust memory.
 
 Usage:
     python tools/study_plan.py --weeks 8 --hours-per-week 10
@@ -20,7 +21,7 @@ import json
 import sys
 
 import taxonomy
-from common import ProgressError, load_domain_questions, load_progress
+from common import MAX_HOURS_PER_WEEK, MAX_WEEKS, ProgressError, load_domain_questions, load_progress
 from progress_tracker import adaptive_recommendation
 
 # Curated curriculum topics per domain (our own study organisation, not PMI's).
@@ -140,10 +141,10 @@ def _practice_count(domain, hours_per_week):
 
 
 def generate_plan(weeks, hours_per_week, weak_topics=None, priority_domain=None):
-    if weeks < 1:
-        raise ValueError("weeks must be at least 1")
-    if hours_per_week < 1:
-        raise ValueError("hours_per_week must be at least 1")
+    if not 1 <= weeks <= MAX_WEEKS:
+        raise ValueError(f"weeks must be between 1 and {MAX_WEEKS}")
+    if not 1 <= hours_per_week <= MAX_HOURS_PER_WEEK:
+        raise ValueError(f"hours_per_week must be between 1 and {MAX_HOURS_PER_WEEK}")
 
     weak_topics = weak_topics or []
     allocation = _allocate_weeks(weeks)
@@ -249,8 +250,10 @@ def main():
     parser.add_argument("--ignore-history", action="store_true", help="Ignore prior progress data even if present")
     args = parser.parse_args()
 
-    if args.weeks < 1 or args.hours_per_week < 1:
-        print(json.dumps({"error": "--weeks and --hours-per-week must both be at least 1"}, indent=2))
+    if not (1 <= args.weeks <= MAX_WEEKS and 1 <= args.hours_per_week <= MAX_HOURS_PER_WEEK):
+        print(json.dumps({
+            "error": f"--weeks must be 1-{MAX_WEEKS} and --hours-per-week must be 1-{MAX_HOURS_PER_WEEK}",
+        }, indent=2))
         sys.exit(1)
 
     weak_topics = []

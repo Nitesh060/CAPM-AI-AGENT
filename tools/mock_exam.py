@@ -19,6 +19,9 @@ runs out of unique questions its shortfall is redistributed to the other
 domains as close to the official weights as possible, and any deviation is
 reported.
 
+--reveal-answers prints the answer key and is for developers and scripts only,
+never for tutoring (see SECURITY.md).
+
 Usage:
     python tools/mock_exam.py --questions 20
     python tools/mock_exam.py --questions 150
@@ -33,7 +36,7 @@ import random
 import sys
 
 import taxonomy
-from common import load_domain_questions, randomize_options, strip_answers
+from common import check_question_count, load_domain_questions, randomize_options, reveal_allowed, strip_answers
 
 
 def _largest_remainder(total, weights):
@@ -144,11 +147,19 @@ def main():
     parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducibility")
     parser.add_argument("--allow-repeats", action="store_true", help="Allow repeated questions if the bank has fewer unique questions than requested")
     parser.add_argument("--no-repeats", action="store_true", help="Deprecated no-op: repeats are off by default")
-    parser.add_argument("--reveal-answers", action="store_true", help="Include correct answers/explanations (default: hidden, student-safe)")
+    parser.add_argument("--reveal-answers", action="store_true", help="Developer-only: print the answer key. Refused unless a developer opt-in is set; never used for tutoring")
     args = parser.parse_args()
 
-    if args.questions <= 0:
-        print(json.dumps({"error": "--questions must be a positive integer"}, indent=2))
+    if args.reveal_answers and not reveal_allowed():
+        print(json.dumps({
+            "error": "--reveal-answers is disabled: it prints the answer key and is not available for tutoring. See SECURITY.md.",
+        }, indent=2))
+        sys.exit(1)
+
+    try:
+        check_question_count(args.questions, "--questions")
+    except ValueError as e:
+        print(json.dumps({"error": str(e)}, indent=2))
         sys.exit(1)
     if args.allow_repeats and args.no_repeats:
         print(json.dumps({"error": "--allow-repeats and --no-repeats are mutually exclusive"}, indent=2))

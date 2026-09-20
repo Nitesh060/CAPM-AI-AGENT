@@ -14,6 +14,10 @@ v1 files ({"sessions": [...]}) are upgraded automatically on load.
 Preferred way to record progress is tools/session.py (finish), which builds the
 attempts from the session file. `--record` remains for backward compatibility.
 
+Everything stored here is read back to the tutor later (--summary), so stored text is
+treated as untrusted: attempt fields are strictly validated (score_analyzer) and
+free-text notes are stripped of control characters and capped.
+
 Usage:
     python tools/progress_tracker.py --record --type quiz --input results.json
     python tools/progress_tracker.py --summary
@@ -27,7 +31,7 @@ import secrets
 import sys
 from collections import defaultdict
 
-from common import ProgressError, load_progress, save_progress
+from common import MAX_NOTE_CHARS, ProgressError, clean_text, load_progress, read_text_limited, save_progress
 from score_analyzer import AttemptError, analyze, normalize_attempts
 
 DIFFICULTY_ORDER = ["easy", "medium", "hard"]
@@ -83,7 +87,7 @@ def record_session(session_type, attempts, notes=None, session_id=None):
         "strong_topics": analysis["strong_topics"],
     }
     if notes:
-        session["notes"] = notes
+        session["notes"] = clean_text(notes, MAX_NOTE_CHARS)
 
     progress["sessions"].append(session)
     for a in normalized:
@@ -93,6 +97,11 @@ def record_session(session_type, attempts, notes=None, session_id=None):
     save_progress(progress)
 
     return dict(session, warnings=warnings) if warnings else session
+
+
+def _agent_view(session):
+    """A session record as shown to the tutor: stored free-text notes are never surfaced."""
+    return {k: v for k, v in session.items() if k != "notes"}
 
 
 def summarize(progress):
@@ -131,7 +140,7 @@ def summarize(progress):
         "lifetime_percentage": pct(total_correct, total_attempted),
         "lifetime_domain_performance": lifetime_domain,
         "lifetime_topic_performance": lifetime_topic,
-        "recent_sessions": sessions[-5:],
+        "recent_sessions": [_agent_view(s) for s in sessions[-5:]],
     }
 
 
@@ -278,10 +287,9 @@ def main():
     try:
         if args.record:
             if args.stdin:
-                raw = sys.stdin.read()
+                raw = read_text_limited(sys.stdin)
             elif args.input:
-                with open(args.input, encoding="utf-8") as f:
-                    raw = f.read()
+                raw = read_text_limited(args.input)
             else:
                 parser.error("--record requires --input <file> or --stdin")
                 return
@@ -289,11 +297,13 @@ def main():
                 data = json.loads(raw)
             except json.JSONDecodeError as e:
                 _fail(f"Input is not valid JSON: {e}")
+            except RecursionError:
+                _fail("Input is nested too deeply.")
             if not isinstance(data, dict) or not data.get("attempts"):
                 _fail("No attempts provided.")
             session = record_session(args.type, data["attempts"], notes=args.notes)
             print(json.dumps({
-                "recorded_session": session,
+                "recorded_session": _agent_view(session),
                 "note": "Legacy path: prefer 'python tools/session.py' so attempts are graded and recorded automatically.",
             }, indent=2))
             return
@@ -307,7 +317,7 @@ def main():
         if args.adaptive:
             print(json.dumps(adaptive_recommendation(progress), indent=2))
             return
-    except (AttemptError, ProgressError) as e:
+    except (ValueError, ProgressError) as e:  # ValueError covers AttemptError and unreadable/oversized input
         _fail(str(e))
 
     parser.print_help()

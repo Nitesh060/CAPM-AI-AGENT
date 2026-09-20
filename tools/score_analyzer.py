@@ -25,16 +25,23 @@ Usage:
 """
 
 import argparse
+import datetime
 import json
+import re
 import sys
 from collections import defaultdict
 
 import taxonomy
-from common import load_all_questions
+from common import MAX_QUESTIONS, load_all_questions, read_text_limited, shown
 
 STRONG_THRESHOLD = 75.0
 WEAK_THRESHOLD = 60.0
 DIFFICULTIES = ("easy", "medium", "hard")
+
+# Fields that are stored and later shown back to the tutor must be tightly shaped,
+# so untrusted text cannot be smuggled through them.
+QUESTION_ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,40}$")
+CHOSEN_RE = re.compile(r"^[A-Za-z]$")
 
 
 class AttemptError(ValueError):
@@ -55,6 +62,8 @@ def normalize_attempts(attempts):
     """
     if not isinstance(attempts, list) or not attempts:
         raise AttemptError("'attempts' must be a non-empty list.")
+    if len(attempts) > MAX_QUESTIONS:
+        raise AttemptError(f"At most {MAX_QUESTIONS} attempts can be scored at once.")
 
     bank = {q["id"]: q for q in load_all_questions() if "id" in q}
     normalized, warnings = [], []
@@ -66,6 +75,8 @@ def normalize_attempts(attempts):
             raise AttemptError(f"Attempt #{i}: 'correct' must be true or false (got {a.get('correct')!r}).")
 
         qid = a.get("question_id")
+        if qid is not None and not (isinstance(qid, str) and QUESTION_ID_RE.match(qid)):
+            raise AttemptError(f"Attempt #{i}: question_id must be 1-40 letters, digits, '-' or '_'.")
         bank_q = bank.get(qid) if qid else None
 
         if bank_q:
@@ -76,11 +87,11 @@ def normalize_attempts(attempts):
             difficulty = str(a.get("difficulty", "")).strip().lower()
             if not domain:
                 raise AttemptError(
-                    f"Attempt #{i}: unknown domain {a.get('domain')!r}. Valid: {', '.join(taxonomy.practice_domains())}."
+                    f"Attempt #{i}: unknown domain {shown(a.get('domain'))!r}. Valid: {', '.join(taxonomy.practice_domains())}."
                 )
             if not topic:
                 raise AttemptError(
-                    f"Attempt #{i}: unknown topic {a.get('topic')!r}. Run 'python tools/quiz_engine.py --list-topics'."
+                    f"Attempt #{i}: unknown topic {shown(a.get('topic'))!r}. Run 'python tools/quiz_engine.py --list-topics'."
                 )
             if taxonomy.topic_domain(topic) != domain:
                 raise AttemptError(
@@ -88,7 +99,7 @@ def normalize_attempts(attempts):
                 )
             if difficulty not in DIFFICULTIES:
                 raise AttemptError(f"Attempt #{i}: difficulty must be one of {', '.join(DIFFICULTIES)}.")
-            warnings.append(f"Attempt #{i}: question_id {qid!r} is not in the bank; accepted as an external question.")
+            warnings.append(f"Attempt #{i}: question is not in the bank; accepted as an external question.")
 
         record = {
             "question_id": qid,
@@ -97,9 +108,20 @@ def normalize_attempts(attempts):
             "difficulty": difficulty,
             "correct": a["correct"],
         }
-        for optional in ("chosen", "answered_at"):
-            if a.get(optional) is not None:
-                record[optional] = a[optional]
+        chosen = a.get("chosen")
+        if chosen is not None:
+            if not (isinstance(chosen, str) and CHOSEN_RE.match(chosen)):
+                raise AttemptError(f"Attempt #{i}: 'chosen' must be a single option letter.")
+            record["chosen"] = chosen.upper()
+        answered_at = a.get("answered_at")
+        if answered_at is not None:
+            try:
+                if not isinstance(answered_at, str) or len(answered_at) > 40:
+                    raise ValueError
+                datetime.datetime.fromisoformat(answered_at)
+            except ValueError:
+                raise AttemptError(f"Attempt #{i}: 'answered_at' must be an ISO-8601 timestamp.") from None
+            record["answered_at"] = answered_at
         normalized.append(record)
 
     return normalized, warnings
@@ -205,19 +227,23 @@ def main():
     parser.add_argument("--stdin", action="store_true", help="Read attempts JSON from stdin")
     args = parser.parse_args()
 
-    if args.stdin:
-        raw = sys.stdin.read()
-    elif args.input:
-        with open(args.input, encoding="utf-8") as f:
-            raw = f.read()
-    else:
-        parser.error("Provide either --input <file> or --stdin")
-        return
+    try:
+        if args.stdin:
+            raw = read_text_limited(sys.stdin)
+        elif args.input:
+            raw = read_text_limited(args.input)
+        else:
+            parser.error("Provide either --input <file> or --stdin")
+            return
+    except ValueError as e:
+        _fail(str(e))
 
     try:
         data = json.loads(raw)
     except json.JSONDecodeError as e:
         _fail(f"Input is not valid JSON: {e}")
+    except RecursionError:
+        _fail("Input is nested too deeply.")
     if not isinstance(data, dict):
         _fail("Input must be a JSON object with an 'attempts' list.")
 

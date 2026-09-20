@@ -6,6 +6,8 @@ filters, optionally randomizes answer options, and outputs structured JSON.
 
 This is the stateless batch tool. For an interactive tutoring flow (grading
 kept server-side so answers are never exposed early) use tools/session.py.
+--reveal-answers prints the answer key and is for developers and scripts only,
+never for tutoring (see SECURITY.md).
 
 Usage:
     python tools/quiz_engine.py --topic agile --count 10
@@ -23,7 +25,16 @@ import random
 import sys
 
 import taxonomy
-from common import filter_questions, load_all_questions, randomize_options, strip_answers
+from common import (
+    check_query_text,
+    check_question_count,
+    filter_questions,
+    load_all_questions,
+    randomize_options,
+    reveal_allowed,
+    shown,
+    strip_answers,
+)
 
 
 def build_quiz(count, topic=None, domain=None, difficulty=None, shuffle_options=True, seed=None):
@@ -81,7 +92,7 @@ def main():
     parser.add_argument("--count", type=int, default=10, help="Number of questions to select")
     parser.add_argument("--no-shuffle", action="store_true", help="Do not randomize answer option order")
     parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducible quizzes")
-    parser.add_argument("--reveal-answers", action="store_true", help="Include correct answers/explanations in output (default: hidden, student-safe)")
+    parser.add_argument("--reveal-answers", action="store_true", help="Developer-only: print the answer key. Refused unless a developer opt-in is set; never used for tutoring")
     parser.add_argument("--list-topics", action="store_true", help="List canonical topics per domain and exit")
     args = parser.parse_args()
 
@@ -89,9 +100,23 @@ def main():
         print(json.dumps(list_topics(), indent=2))
         return
 
+    if args.reveal_answers and not reveal_allowed():
+        print(json.dumps({
+            "error": "--reveal-answers is disabled: it prints the answer key and is not available for tutoring. See SECURITY.md.",
+        }, indent=2))
+        sys.exit(1)
+
+    try:
+        check_question_count(args.count, "--count")
+        check_query_text("topic", args.topic)
+        check_query_text("domain", args.domain)
+    except ValueError as e:
+        print(json.dumps({"error": str(e)}, indent=2))
+        sys.exit(1)
+
     if args.domain and not taxonomy.canonical_domain(args.domain):
         print(json.dumps({
-            "error": f"Unknown domain {args.domain!r}.",
+            "error": f"Unknown domain {shown(args.domain)!r}.",
             "valid_domains": taxonomy.practice_domains(),
         }, indent=2))
         sys.exit(1)
