@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Learner data is personal: keep it out of version control.
+# A safe template lives in data/student_progress.example.json
+data/student_progress.json
+data/sessions/
+
+# Local Claude Code overrides
+.claude/settings.local.json

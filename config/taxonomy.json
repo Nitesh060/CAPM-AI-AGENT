@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "official": {
+    "_comment": "Facts in this block come from PMI's published CAPM Examination Content Outline. Do not edit them to match our question bank; edit the 'practice' block instead.",
+    "source": {
+      "title": "PMI Certified Associate in Project Management (CAPM)® Examination Content Outline — 2023 Exam Update",
+      "publisher": "Project Management Institute (PMI)",
+      "url": "https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/capm-exam-content-outline-english.pdf",
+      "retrieved": "2026-09-20",
+      "verification_note": "Domains, weights and exam facts were read directly from the PDF on the retrieval date. PMI's CAPM landing page returned HTTP 403 to automated fetching, so the absence of a newer outline could not be confirmed there. Re-check PMI's site before relying on these figures."
+    },
+    "exam": {
+      "total_questions": 150,
+      "scored_questions": 135,
+      "pretest_unscored_questions": 15,
+      "duration_minutes": 180,
+      "break_minutes": 10,
+      "break_after_question": 75,
+      "question_formats": ["multiple choice", "drag-and-drop (enhanced matching)", "hot spot / hot area", "animation video", "comic strip"],
+      "passing_score": null,
+      "passing_score_note": "The Examination Content Outline does not state a passing score."
+    },
+    "domains": [
+      {
+        "id": "D1",
+        "name": "Project Management Fundamentals and Core Concepts",
+        "weight": 0.36,
+        "tasks": [
+          {"id": "D1.T1", "title": "Demonstrate an understanding of the various project life cycles and processes."},
+          {"id": "D1.T2", "title": "Demonstrate an understanding of project management planning."},
+          {"id": "D1.T3", "title": "Demonstrate an understanding of project roles and responsibilities."},
+          {"id": "D1.T4", "title": "Determine how to follow and execute planned strategies or frameworks (e.g., communication, risks, etc.)."},
+          {"id": "D1.T5", "title": "Demonstrate an understanding of common problem-solving tools and techniques."}
+        ]
+      },
+      {
+        "id": "D2",
+        "name": "Predictive, Plan-Based Methodologies",
+        "weight": 0.17,
+        "tasks": [
+          {"id": "D2.T1", "title": "Explain when it is appropriate to use a predictive, plan-based approach."},
+          {"id": "D2.T2", "title": "Demonstrate an understanding of a project management plan schedule."},
+          {"id": "D2.T3", "title": "Determine how to document project controls of predictive, plan-based projects."}
+        ]
+      },
+      {
+        "id": "D3",
+        "name": "Agile Frameworks/Methodologies",
+        "weight": 0.20,
+        "tasks": [
+          {"id": "D3.T1", "title": "Explain when it is appropriate to use an adaptive approach."},
+          {"id": "D3.T2", "title": "Determine how to plan project iterations."},
+          {"id": "D3.T3", "title": "Determine how to document project controls for an adaptive project."},
+          {"id": "D3.T4", "title": "Explain the components of an adaptive plan."},
+          {"id": "D3.T5", "title": "Determine how to prepare and execute task management steps."}
+        ]
+      },
+      {
+        "id": "D4",
+        "name": "Business Analysis Frameworks",
+        "weight": 0.27,
+        "tasks": [
+          {"id": "D4.T1", "title": "Demonstrate an understanding of business analysis (BA) roles and responsibilities."},
+          {"id": "D4.T2", "title": "Determine how to conduct stakeholder communication."},
+          {"id": "D4.T3", "title": "Determine how to gather requirements."},
+          {"id": "D4.T4", "title": "Demonstrate an understanding of product roadmaps."},
+          {"id": "D4.T5", "title": "Determine how project methodologies influence business analysis processes."},
+          {"id": "D4.T6", "title": "Validate requirements through product delivery."}
+        ]
+      }
+    ]
+  },
+  "practice": {
+    "_comment": "Everything below is OUR OWN organisation of AI-generated practice material. It is not PMI content and not a PMI question distribution.",
+    "disclaimer": "Practice questions are AI-generated, original study material. They are not official PMI questions. Domain weights used for mock exams are PMI's published domain weights applied to this practice bank; they do not reproduce the real exam.",
+    "domains": [
+      {"key": "Fundamentals", "official_id": "D1", "bank_file": "fundamentals.json", "aliases": ["fundamentals", "pm fundamentals", "project management fundamentals", "core concepts", "d1"]},
+      {"key": "Predictive", "official_id": "D2", "bank_file": "predictive.json", "aliases": ["predictive", "waterfall", "plan based", "d2"]},
+      {"key": "Agile", "official_id": "D3", "bank_file": "agile.json", "aliases": ["agile", "d3"]},
+      {"key": "Business Analysis", "official_id": "D4", "bank_file": "business-analysis.json", "aliases": ["business analysis", "ba", "d4"]}
+    ],
+    "topics": [
+      {"name": "Project vs Operations", "domain": "Fundamentals", "aliases": ["project versus operations", "operations", "projects and operations"]},
+      {"name": "Organizational Structures", "domain": "Fundamentals", "aliases": ["organizational structure", "organization structure", "org structures", "functional", "matrix", "projectized"]},
+      {"name": "Project Charter", "domain": "Fundamentals", "aliases": ["charter"]},
+      {"name": "Triple Constraint", "domain": "Fundamentals", "aliases": ["iron triangle", "constraints"]},
+      {"name": "PMI Talent Triangle", "domain": "Fundamentals", "aliases": ["talent triangle", "power skills"]},
+      {"name": "Work Breakdown Structure", "domain": "Fundamentals", "aliases": ["wbs", "work package", "work packages", "decomposition"]},
+      {"name": "Process Groups", "domain": "Fundamentals", "aliases": ["process group", "project management process groups"]},
+      {"name": "Stakeholder Management", "domain": "Fundamentals", "aliases": ["stakeholders", "stakeholder register"]},
+      {"name": "Progressive Elaboration", "domain": "Fundamentals", "aliases": []},
+      {"name": "Project Life Cycle", "domain": "Fundamentals", "aliases": ["life cycle", "lifecycle", "project lifecycle", "phases"]},
+      {"name": "Rolling Wave Planning", "domain": "Fundamentals", "aliases": ["rolling wave"]},
+
+      {"name": "Schedule Management", "domain": "Predictive", "aliases": ["schedule", "scheduling", "critical path", "critical path method", "cpm", "float", "slack", "network diagram"]},
+      {"name": "Cost Management (EVM)", "domain": "Predictive", "aliases": ["cost management", "cost", "evm", "earned value", "earned value management", "cpi", "spi", "budget"]},
+      {"name": "Risk Management", "domain": "Predictive", "aliases": ["risk", "risks", "risk register", "risk response"]},
+      {"name": "Schedule Compression", "domain": "Predictive", "aliases": ["compression", "crashing", "fast tracking"]},
+      {"name": "Quality Management", "domain": "Predictive", "aliases": ["quality", "qa", "qc", "cost of quality"]},
+      {"name": "Cost Estimating", "domain": "Predictive", "aliases": ["cost estimation", "estimating", "analogous estimating", "parametric estimating", "three point estimating", "pert"]},
+      {"name": "Procurement Management", "domain": "Predictive", "aliases": ["procurement", "contracts", "contract types"]},
+      {"name": "Integration Management", "domain": "Predictive", "aliases": ["integration", "change control", "integrated change control"]},
+
+      {"name": "Scrum Roles", "domain": "Agile", "aliases": ["scrum master", "product owner", "scrum team", "developers"]},
+      {"name": "Scrum Ceremonies", "domain": "Agile", "aliases": ["scrum events", "ceremonies", "sprint planning", "daily scrum", "standup", "retrospective", "sprint review"]},
+      {"name": "Kanban", "domain": "Agile", "aliases": ["kanban board", "wip", "wip limits"]},
+      {"name": "Agile Principles", "domain": "Agile", "aliases": ["agile manifesto", "manifesto", "agile values"]},
+      {"name": "Servant Leadership", "domain": "Agile", "aliases": ["servant leader"]},
+      {"name": "Estimation", "domain": "Agile", "aliases": ["agile estimation", "story points", "planning poker", "t shirt sizing"]},
+      {"name": "Definition of Done", "domain": "Agile", "aliases": ["dod"]},
+      {"name": "Velocity", "domain": "Agile", "aliases": ["team velocity"]},
+      {"name": "Hybrid Approaches", "domain": "Agile", "aliases": ["hybrid"]},
+      {"name": "User Stories", "domain": "Agile", "aliases": ["user story"]},
+      {"name": "Backlog Refinement", "domain": "Agile", "aliases": ["grooming", "backlog grooming", "product backlog", "refinement"]},
+      {"name": "Adaptive Life Cycle", "domain": "Agile", "aliases": ["adaptive", "iterative", "incremental", "agile life cycle"]},
+
+      {"name": "Financial Analysis", "domain": "Business Analysis", "aliases": ["financial", "roi", "npv", "irr", "payback", "payback period", "bcr", "opportunity cost"]},
+      {"name": "Requirements Elicitation", "domain": "Business Analysis", "aliases": ["elicitation", "requirements gathering", "gathering requirements", "interviews", "focus groups", "workshops"]},
+      {"name": "Requirements Types", "domain": "Business Analysis", "aliases": ["functional requirements", "non functional requirements"]},
+      {"name": "Organizational Strategy", "domain": "Business Analysis", "aliases": ["strategy", "strategic alignment", "portfolio management"]},
+      {"name": "Business Case", "domain": "Business Analysis", "aliases": ["needs assessment", "cost benefit analysis"]},
+      {"name": "Value Delivery", "domain": "Business Analysis", "aliases": ["value", "business value"]},
+      {"name": "Requirements Traceability", "domain": "Business Analysis", "aliases": ["traceability", "rtm", "traceability matrix", "requirements traceability matrix"]},
+      {"name": "Change Management", "domain": "Business Analysis", "aliases": ["adkar", "organizational change"]},
+      {"name": "Benefits Realization", "domain": "Business Analysis", "aliases": ["benefits", "benefits management"]},
+      {"name": "Stakeholder Engagement", "domain": "Business Analysis", "aliases": ["engagement", "stakeholder analysis", "power interest grid", "engagement assessment matrix"]}
+    ],
+    "mock": {
+      "distribution_basis": "official_domain_weights",
+      "note": "Mock exams draw questions in proportion to PMI's published domain weights. Our bank is small, so the achievable mix can deviate; deviations are always reported."
+    }
+  }
+}

@@ -4,9 +4,20 @@ This document defines how to evaluate whether the agent (guided by `SKILL.md`) a
 
 ---
 
+## 0. Automated coverage
+
+Most of Sections 1–2 are now automated:
+
+```bash
+python3 -m unittest discover -s tests   # tests/test_p0.py (taxonomy, filters, scoring, mock, plan) + tests/test_p1.py (progress v2, selector, sessions, CLI compatibility)
+python tools/validate_bank.py           # Section 2 checks + taxonomy conformance
+```
+
+The tests write only to a temporary directory (`CAPM_DATA_DIR`). Section 3 (agent behavior) remains a manual/rubric review.
+
 ## 1. Tool-Level Tests (Deterministic)
 
-These can be run directly and checked against expected outcomes. Run from `capm-ai-agent/`.
+These can be run directly and checked against expected outcomes. Run from the repository root.
 
 ### 1.1 Quiz Engine
 
@@ -24,10 +35,12 @@ These can be run directly and checked against expected outcomes. Run from `capm-
 
 | Test | Command | Expected |
 |---|---|---|
-| Domain weighting | `python tools/mock_exam.py --questions 20 --seed 1` | Distribution ≈ 50% Predictive / 25% Agile / 25% Business Analysis (±1 due to rounding) |
-| Large exam with limited bank | `python tools/mock_exam.py --questions 150` | Completes without error; `warnings` non-empty explaining repeats; `actual_questions == 150` |
-| No-repeats mode | `python tools/mock_exam.py --questions 150 --no-repeats` | `actual_questions` capped at total unique questions available; warnings explain shortfall |
-| Disclaimer present | any mock exam run | Output JSON includes a `disclaimer` field stating it is not an official PMI exam |
+| Domain weighting | `python tools/mock_exam.py --questions 20 --seed 1` | Distribution ≈ PMI's published weights: 36% Fundamentals / 17% Predictive / 20% Agile / 27% Business Analysis (±1 due to rounding) |
+| Oversized request, limited bank | `python tools/mock_exam.py --questions 150` | Completes without error; `actual_questions` equals the unique questions in the bank (currently 48); `warnings` explain the cap; no repeated ids |
+| Domain shortfall | `python tools/mock_exam.py --questions 40` | `actual_questions == 40`; `domain_distribution_actual` differs from `domain_distribution_target`; a "deviates" warning explains why |
+| Explicit repeats | `python tools/mock_exam.py --questions 150 --allow-repeats` | `actual_questions == 150`; warnings say questions were repeated |
+| Deprecated flag | `python tools/mock_exam.py --questions 150 --no-repeats` | Accepted; same result as the default |
+| Disclaimer present | any mock exam run | Output JSON includes a `disclaimer` field stating it is not an official PMI exam, and `distribution_basis` says the weights are PMI's applied to AI-generated questions |
 
 ### 1.3 Score Analyzer
 
@@ -45,7 +58,23 @@ These can be run directly and checked against expected outcomes. Run from `capm-
 | Record session | `--record --type quiz --stdin` with valid attempts | Appends a session to `data/student_progress.json` with today's date |
 | Empty history summary | `--summary` on fresh `{"sessions": []}` | Returns `{"message": "No sessions recorded yet.", ...}` |
 | Adaptive with no history | `--adaptive` on fresh data | Returns default balanced recommendation, `suggested_difficulty: "medium"` |
-| Adaptive after weak session | `--adaptive` after recording a session with one very weak domain | `priority_domain` equals the weakest-performing domain; `suggested_difficulty_adjustment` reflects last session's score band |
+| Adaptive after weak session | `--adaptive` after recording a session with one very weak domain | `priority_domain` equals the weakest-performing domain (only when it is below 75%); `suggested_difficulty_adjustment` reflects last session's score band |
+| Lifetime memory | weak session, then a perfect session on other topics | `weak_topics_to_revisit` still lists the earlier weak topics |
+| Idempotent recording | record the same `session_id` twice | One session and one set of attempts stored |
+| Corrupt progress file | invalid JSON in `student_progress.json` | Tools exit 1 with a JSON error; the file is not overwritten |
+
+### 1.4a Session engine (`tools/session.py`)
+
+| Test | Command / action | Expected |
+|---|---|---|
+| No early key exposure | `start`, `next`, `status`, `list` | No output contains `correct_answer`, `explanation`, `why_others_are_wrong`, or `concept_tested` |
+| Feedback after answering | `answer --session ID --choice X --question-id Q` | Output has correctness, the correct answer, explanation, why-others-wrong, concept tested, and the next question (without a key) |
+| Deterministic grading | answer using the letter stored in the session file | `correct` matches the stored key |
+| Idempotent answer | submit the same `--question-id` twice | Second call returns `already_answered: true`; one answer stored |
+| Finish rules | `finish` with unanswered questions | Error unless `--partial`; `finish` twice records once |
+| Adaptive start | `start --adaptive` with empty vs. populated history | `selection.mode` is `cold_start` vs. `adaptive` |
+| Mock sizing | `start --mode mock --count 150` | 48 unique questions, cap warning; `--allow-repeats` gives 150 |
+| Bad ids | path-like or unknown session ids | JSON error, exit 1 |
 
 ### 1.5 Study Plan
 
@@ -53,8 +82,9 @@ These can be run directly and checked against expected outcomes. Run from `capm-
 |---|---|---|
 | Week count integrity | `--weeks 2 --hours-per-week 5 --ignore-history` | `len(plan) == 2` (regression test — a prior bug caused extra weeks to be generated) |
 | Week count integrity (larger) | `--weeks 8 --hours-per-week 10 --ignore-history` | `len(plan) == 8` |
-| Domain coverage | any run with `--ignore-history` | All three domains (Predictive, Agile, Business Analysis) appear across `domain_focus` fields |
-| Weak topic boost | run after recording a session with a clearly weak domain | `priority_domain` matches the weak domain; that domain receives proportionally more weeks than a balanced default |
+| Domain coverage | any run with `--ignore-history` | All four domains (Fundamentals, Predictive, Agile, Business Analysis) appear across `domain_focus` fields |
+| Priority domain | run after recording a session with a clearly weak domain | `priority_domain` matches the weak domain and that domain is scheduled first. **Known gap:** it does not yet receive extra weeks (deferred) |
+| Input validation | `--weeks 0` | JSON error, exit 1 |
 | Disclaimer present | any run | Output includes a disclaimer that the plan doesn't guarantee passing |
 
 **Regression note:** An earlier version of `study_plan.py` allocated a minimum of one week per domain regardless of `content_weeks`, causing `--weeks 2` to produce 4 total weeks instead of 2. Fixed by flattening all (domain, topic) pairs into a single ordered list and chunking it into exactly `content_weeks` groups. Any future change to the week-allocation logic should re-run the "Week count integrity" tests above before merging.
@@ -71,9 +101,9 @@ Run against all files in `question_bank/*.json`:
 - [ ] `id` values are unique across the entire question bank
 - [ ] Every file's `metadata.source_type` is `"ai_generated"` (or another explicitly-labeled value) — never silently implies official PMI sourcing
 - [ ] `difficulty` is one of `easy`, `medium`, `hard`
-- [ ] `domain` matches one of the four canonical domains used by `tools/common.py`'s `DOMAIN_FILES`
+- [ ] `domain` matches one of the four canonical domains in `config/taxonomy.json`, and `topic` is a canonical topic of that domain
 
-Quick check script:
+Run `python tools/validate_bank.py` for all of the above (it also flags a skewed answer-key distribution as a warning). The older ad-hoc script is kept for reference:
 ```bash
 python3 -c "
 import json, glob
@@ -108,7 +138,9 @@ Evaluate transcripts of the agent (following `SKILL.md`) against these criteria.
 - [ ] Presents exactly one question at a time
 - [ ] Gives explanation + why-others-are-wrong + concept tested immediately after each answer
 - [ ] Automatically advances to the next question without requiring the student to ask
-- [ ] At the end of a batch, provides a score summary and calls `score_analyzer.py` / `progress_tracker.py`
+- [ ] Grades only through `tools/session.py answer` (never from its own knowledge) and never opens `data/sessions/` or the question bank
+- [ ] Passes `--question-id` on every submission
+- [ ] At the end of a batch, runs `session.py finish` and provides a score summary from its output
 
 ### 3.3 Adaptive Behavior
 - [ ] Checks `progress_tracker.py --adaptive` before building a new quiz/plan for a returning student

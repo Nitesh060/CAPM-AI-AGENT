@@ -14,6 +14,11 @@ Input format (JSON), via --input <file> or stdin:
   ]
 }
 
+Attempts are validated and normalised first: `correct` must be a real boolean,
+domain/topic names are mapped to the canonical taxonomy (so "scrum roles" and
+"Scrum Roles" are one topic), and when the question_id exists in the bank its
+domain/topic/difficulty are taken from the bank.
+
 Usage:
     python tools/score_analyzer.py --input results.json
     cat results.json | python tools/score_analyzer.py --stdin
@@ -24,14 +29,80 @@ import json
 import sys
 from collections import defaultdict
 
+import taxonomy
+from common import load_all_questions
+
 STRONG_THRESHOLD = 75.0
 WEAK_THRESHOLD = 60.0
+DIFFICULTIES = ("easy", "medium", "hard")
+
+
+class AttemptError(ValueError):
+    """The attempts payload is malformed."""
 
 
 def _pct(correct, total):
     if total == 0:
         return 0.0
     return round((correct / total) * 100, 1)
+
+
+def normalize_attempts(attempts):
+    """Validate and canonicalise attempts. Returns (attempts, warnings).
+
+    Raises AttemptError on malformed input (non-boolean `correct`, unknown
+    domain/topic/difficulty for questions that are not in the bank, ...).
+    """
+    if not isinstance(attempts, list) or not attempts:
+        raise AttemptError("'attempts' must be a non-empty list.")
+
+    bank = {q["id"]: q for q in load_all_questions() if "id" in q}
+    normalized, warnings = [], []
+
+    for i, a in enumerate(attempts, start=1):
+        if not isinstance(a, dict):
+            raise AttemptError(f"Attempt #{i} must be a JSON object.")
+        if not isinstance(a.get("correct"), bool):
+            raise AttemptError(f"Attempt #{i}: 'correct' must be true or false (got {a.get('correct')!r}).")
+
+        qid = a.get("question_id")
+        bank_q = bank.get(qid) if qid else None
+
+        if bank_q:
+            domain, topic, difficulty = bank_q["domain"], bank_q["topic"], bank_q["difficulty"].lower()
+        else:
+            domain = taxonomy.canonical_domain(a.get("domain"))
+            topic = taxonomy.canonical_topic(a.get("topic"))
+            difficulty = str(a.get("difficulty", "")).strip().lower()
+            if not domain:
+                raise AttemptError(
+                    f"Attempt #{i}: unknown domain {a.get('domain')!r}. Valid: {', '.join(taxonomy.practice_domains())}."
+                )
+            if not topic:
+                raise AttemptError(
+                    f"Attempt #{i}: unknown topic {a.get('topic')!r}. Run 'python tools/quiz_engine.py --list-topics'."
+                )
+            if taxonomy.topic_domain(topic) != domain:
+                raise AttemptError(
+                    f"Attempt #{i}: topic {topic!r} belongs to {taxonomy.topic_domain(topic)!r}, not {domain!r}."
+                )
+            if difficulty not in DIFFICULTIES:
+                raise AttemptError(f"Attempt #{i}: difficulty must be one of {', '.join(DIFFICULTIES)}.")
+            warnings.append(f"Attempt #{i}: question_id {qid!r} is not in the bank; accepted as an external question.")
+
+        record = {
+            "question_id": qid,
+            "domain": domain,
+            "topic": topic,
+            "difficulty": difficulty,
+            "correct": a["correct"],
+        }
+        for optional in ("chosen", "answered_at"):
+            if a.get(optional) is not None:
+                record[optional] = a[optional]
+        normalized.append(record)
+
+    return normalized, warnings
 
 
 def analyze(attempts):
@@ -123,6 +194,11 @@ def analyze(attempts):
     }
 
 
+def _fail(message):
+    print(json.dumps({"error": message}, indent=2))
+    sys.exit(1)
+
+
 def main():
     parser = argparse.ArgumentParser(description="CAPM Score Analyzer")
     parser.add_argument("--input", type=str, default=None, help="Path to JSON file with attempts")
@@ -138,14 +214,25 @@ def main():
         parser.error("Provide either --input <file> or --stdin")
         return
 
-    data = json.loads(raw)
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as e:
+        _fail(f"Input is not valid JSON: {e}")
+    if not isinstance(data, dict):
+        _fail("Input must be a JSON object with an 'attempts' list.")
+
     attempts = data.get("attempts", [])
-
     if not attempts:
-        print(json.dumps({"error": "No attempts provided."}, indent=2))
-        sys.exit(1)
+        _fail("No attempts provided.")
 
-    result = analyze(attempts)
+    try:
+        normalized, warnings = normalize_attempts(attempts)
+    except AttemptError as e:
+        _fail(str(e))
+
+    result = analyze(normalized)
+    if warnings:
+        result["warnings"] = warnings
     print(json.dumps(result, indent=2))
 
 

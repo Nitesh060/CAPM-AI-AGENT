@@ -1,119 +1,101 @@
 # CAPM Exam Framework
 
-## Overview
-The Certified Associate in Project Management (CAPM) is an entry-level certification for project management professionals. The exam validates foundational knowledge of project management principles and best practices.
+## Source and verification
 
-## Exam Structure
-- **Format**: Multiple-choice, computer-based
-- **Questions**: 150 questions
-- **Duration**: 3 hours
-- **Passing Score**: Approximately 60-70% (varies by exam window)
-- **Domains**: 3 primary domains
+The exam facts and domain weights below come from PMI's own outline:
 
-## Three Primary Domains
+- **Document:** *PMI Certified Associate in Project Management (CAPM)® Examination Content Outline — 2023 Exam Update* (Project Management Institute)
+- **URL:** https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/capm-exam-content-outline-english.pdf
+- **Retrieved and read:** 2026-09-20 (the PDF itself, not a summary)
+- **Caveat:** PMI's CAPM landing page returned HTTP 403 to automated fetching, so this project could not confirm there that no newer outline has been published. **Confirm on PMI's website before relying on these figures.**
+- Machine-readable copy: `config/taxonomy.json` (`official` block). It is the single source of truth used by the tools.
 
-### 1. Predictive, Plan-Based Projects (~50% of exam)
-Focus on traditional/waterfall project management approach.
+This project keeps **official PMI information** and **our own practice material** apart:
 
-**Key Topics:**
-- Initiating: Charter, stakeholder register
-- Planning: Scope, schedule, budget, quality, risk, communications
-- Executing: Quality assurance, team development, communications
-- Monitoring & Controlling: Change management, performance monitoring
-- Closing: Lessons learned, project archives
+| | Official (PMI) | Ours (practice) |
+|---|---|---|
+| Domains and weights | yes | — |
+| Exam size, timing, formats | yes | — |
+| Question bank | — | AI-generated, original |
+| Topic list, aliases, curriculum | — | our own organisation |
+| Mock-exam domain mix | PMI's weights | applied to our questions |
 
-**Processes & Knowledge Areas:**
-- Integration Management
-- Scope Management
-- Schedule Management
-- Cost Management
-- Quality Management
-- Resource Management
-- Communications Management
-- Risk Management
-- Procurement Management
-- Stakeholder Management
+## Exam structure (official)
 
-### 2. Agile/Adaptive Projects (~25% of exam)
-Focus on iterative, incremental, adaptive project approaches.
+- **Questions:** 150 total — **135 scored + 15 unscored pretest** questions, placed randomly
+- **Time:** 3 hours (about 72 seconds per question on average)
+- **Break:** a 10-minute break after question 75, taken after you have reviewed your answers; you cannot go back to questions 1–75 afterwards
+- **Formats:** multiple choice, drag-and-drop (enhanced matching), hot spot / hot area, and animation-video or comic-strip scenario questions (online proctored exams use comic strips only)
+- **Passing score:** **not stated in the Examination Content Outline.** Do not rely on figures quoted elsewhere.
+- **Eligibility:** secondary degree (high school diploma / GED / equivalent) and 23 hours of project management education
+- **Attempts:** up to three attempts within a 1-year eligibility period
+- **References PMI lists:** PMBOK® Guide 7th Edition; Process Groups: A Practice Guide (2022); The PMI Guide to Business Analysis (2017); Business Analysis for Practitioners: A Practice Guide, 2nd Edition; Agile Practice Guide (2017); The Project Management Answer Book, 2nd Edition; Effective Project Management: Traditional, Agile, Extreme, Hybrid, 8th Edition
 
-**Key Topics:**
-- Agile principles and values
-- Iterative product delivery
-- Servant leadership
-- Sprint planning and execution
-- Retrospectives and continuous improvement
-- Agile ceremonies (standup, sprint review, backlog refinement)
+## Four domains (official)
 
-**Frameworks:**
-- Scrum
-- Kanban
-- XP (Extreme Programming)
-- Lean
-- Crystal
+| # | Domain | Weight | Tasks |
+|---|---|---|---|
+| 1 | Project Management Fundamentals and Core Concepts | **36%** | 5 |
+| 2 | Predictive, Plan-Based Methodologies | **17%** | 3 |
+| 3 | Agile Frameworks/Methodologies | **20%** | 5 |
+| 4 | Business Analysis Frameworks | **27%** | 6 |
 
-### 3. Business Acumen (~25% of exam)
-Strategic alignment, organizational context, value delivery.
+PMI states that predictive, adaptive and business-analysis approaches "will be found throughout the four domain areas… and are not isolated to any particular domain or task", and that every exam covers all tasks of a domain at these domain-level percentages.
 
-**Key Topics:**
-- Business case and ROI
-- Product lifecycle vs project lifecycle
-- Systems thinking
-- Strategic objectives alignment
-- Organizational structure and culture
-- Change management
-- Value delivery
+### Domain 1 — Project Management Fundamentals and Core Concepts (36%)
+1. Understand the various project life cycles and processes (project vs. program vs. portfolio, project vs. operations, predictive vs. adaptive, issues/risks/assumptions/constraints, scope, code of ethics, a project as a vehicle for change)
+2. Understand project management planning (cost, quality, risk, schedule; project vs. product management plan; milestones vs. task durations; resources; risk and stakeholder registers; closure and transitions)
+3. Understand project roles and responsibilities (project manager vs. sponsor vs. team; leadership vs. management; emotional intelligence)
+4. Follow and execute planned strategies or frameworks (communication, risk; initiation and benefit planning)
+5. Understand common problem-solving tools and techniques (meeting effectiveness, focus groups, stand-ups, brainstorming)
 
-## Process Groups (Predictive Context)
-1. **Initiating**: Define project, identify stakeholders, authorize work
-2. **Planning**: Create comprehensive project plans
-3. **Executing**: Perform the actual work
-4. **Monitoring & Controlling**: Track, review, regulate progress
-5. **Closing**: Formalize acceptance and end project
+### Domain 2 — Predictive, Plan-Based Methodologies (17%)
+1. When a predictive, plan-based approach is appropriate
+2. A project management plan schedule (critical path, schedule variance, WBS, work packages, quality and integration management plans)
+3. Documenting project controls (artifacts, cost and schedule variances)
 
-## Knowledge Areas (Predictive Context)
-1. **Integration Management**: Coordinate all elements
-2. **Scope Management**: Define and control what's included
-3. **Schedule Management**: Define activities, sequence, estimate, develop schedule
-4. **Cost Management**: Estimate, budget, control costs
-5. **Quality Management**: Plan, perform, control quality
-6. **Resource Management**: Acquire, develop, manage team
-7. **Communications Management**: Plan, manage, monitor communications
-8. **Risk Management**: Plan, identify, analyze, respond to risks
-9. **Procurement Management**: Plan, conduct, control procurements
-10. **Stakeholder Management**: Identify, plan, manage engagement
+### Domain 3 — Agile Frameworks/Methodologies (20%)
+1. When an adaptive approach is appropriate
+2. Planning project iterations
+3. Documenting project controls for an adaptive project
+4. Components of an adaptive plan (Scrum, XP, SAFe®, Kanban, ...)
+5. Preparing and executing task management steps (success criteria, prioritisation)
 
-## Exam Tips
-- **Read questions carefully**: Pay attention to what is being asked
-- **Eliminate obviously wrong answers**: Narrow down options
-- **Choose most complete answer**: Look for comprehensive solutions
-- **Know context clues**: "Best," "First," "Most likely" guide answer selection
-- **Understand processes**: Know the sequence and purpose of PM processes
-- **Study real-world scenarios**: Practice with realistic project situations
+### Domain 4 — Business Analysis Frameworks (27%)
+1. Business analysis roles and responsibilities
+2. Stakeholder communication
+3. Gathering requirements (user stories, use cases, traceability matrix / product backlog)
+4. Product roadmaps
+5. How project methodologies influence business analysis
+6. Validating requirements through product delivery (acceptance criteria, readiness for delivery)
 
-## Study Areas
-- Project charter and scope statement
-- Work breakdown structure (WBS)
-- Stakeholder analysis and management
-- Risk register and response strategies
-- Communication plans
-- Earned value management (EVM)
-- Integration and change management
-- Agile ceremonies and values
-- Business value and ROI
-- Organizational influence and culture
+## How this project maps to the official domains
 
-## Pass Rates
-- First-time pass rate for CAPM is approximately 60-65%
-- Success requires balanced knowledge of all three domains
-- Weak areas require additional practice
+| Practice domain (our bank) | Official domain |
+|---|---|
+| Fundamentals | 1 — Project Management Fundamentals and Core Concepts |
+| Predictive | 2 — Predictive, Plan-Based Methodologies |
+| Agile | 3 — Agile Frameworks/Methodologies |
+| Business Analysis | 4 — Business Analysis Frameworks |
 
-## Time Management Tips
-- Allocate 72 seconds per question on average
-- Don't get stuck on difficult questions; mark and return
-- Review answers if time permits
-- Final review: 10-15 minutes if possible
+Mock exams take PMI's domain weights (36/17/20/27) and apply them to our AI-generated questions. They are **practice** exams: they do not reproduce the real exam's questions, formats or difficulty. Because the bank is small, an oversized request is capped at the unique questions available (with a warning), and the domain mix may deviate from the official weights — the tool reports any deviation.
+
+## Background: process groups and knowledge areas (study notes, not the ECO structure)
+
+These older PMBOK-style groupings are still useful vocabulary for the predictive material, but the 2023 outline is organised by the four domains above.
+
+**Process groups:** Initiating (define the project, identify stakeholders, authorize work) · Planning · Executing · Monitoring & Controlling · Closing.
+
+**Knowledge areas:** Integration · Scope · Schedule · Cost · Quality · Resource · Communications · Risk · Procurement · Stakeholder management.
+
+## General exam-taking tips (unofficial advice)
+
+- Read questions carefully; watch for qualifiers such as "best", "first", "most likely"
+- Eliminate obviously wrong answers, then choose the most complete option
+- Mark difficult questions and return; use the 10-minute break to reset
+- Practise with realistic scenarios, not just definitions
+- Pretest (unscored) questions look identical to scored ones, so treat every question seriously
 
 ---
 
-**Note**: This is original study material created for learning purposes. Always refer to the official PMI CAPM exam content outline for the most current and authoritative information.
+**Note:** This is original study material created for learning purposes. PMI, CAPM and PMBOK are marks of the Project Management Institute; this project is not affiliated with or endorsed by PMI. Always refer to PMI's current Examination Content Outline for the authoritative specification.

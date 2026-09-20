@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./data/sessions/**)",
+      "Bash(cat data/sessions/*)",
+      "Bash(head data/sessions/*)",
+      "Bash(tail data/sessions/*)",
+      "Bash(grep * data/sessions/*)",
+      "Bash(jq * data/sessions/*)"
+    ]
+  }
+}
