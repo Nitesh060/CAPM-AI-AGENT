@@ -138,10 +138,30 @@ def get_sessions_dir():
     return SESSIONS_DIR
 
 
+def _lockdown_dir(directory):
+    """Create `directory` (and any missing parents) then ensure every level
+    up to the data root is owner-only (0700).
+
+    Path.mkdir(mode=...) only applies the given mode to the deepest directory
+    it creates, not to intermediate parents it creates along the way (those
+    get a permissive default masked only by umask) — so each level is
+    chmod'd explicitly here, bounded to the data root and never touching
+    anything above it (e.g. the project directory itself).
+    """
+    directory.mkdir(parents=True, exist_ok=True)
+    root = Path(os.environ.get(DATA_DIR_ENV) or DATA_DIR).resolve()
+    node = directory.resolve()
+    while True:
+        os.chmod(node, 0o700)
+        if node == root or node == node.parent:
+            break
+        node = node.parent
+
+
 def write_json_atomic(path, data):
     """Write JSON to a temp file in the same directory, then atomically replace."""
     path = Path(path)
-    path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    _lockdown_dir(path.parent)
     tmp = path.with_name(f"{path.name}.tmp{os.getpid()}")
     try:
         with open(tmp, "w", encoding="utf-8") as f:

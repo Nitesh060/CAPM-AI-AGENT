@@ -15,16 +15,16 @@
       "question": "A project has two paths to completion: Path A takes 20 days, and Path B takes 15 days. Both paths must complete before the project can close. What is the float on Path B?",
       "options": {
         "A": "0 days",
-        "B": "5 days",
-        "C": "15 days",
-        "D": "20 days"
+        "D": "5 days",
+        "B": "15 days",
+        "C": "20 days"
       },
-      "correct_answer": "B",
+      "correct_answer": "D",
       "explanation": "Path A (20 days) is the critical path since it's the longest. Path B has 15 days of work but 20 days available before the project must close, giving it 5 days of float (20 - 15 = 5).",
       "why_others_are_wrong": {
         "A": "Zero float applies to the critical path (Path A), not Path B.",
-        "C": "15 days is Path B's duration, not its float.",
-        "D": "20 days is Path A's duration (the critical path), not Path B's float."
+        "B": "15 days is Path B's duration, not its float.",
+        "C": "20 days is Path A's duration (the critical path), not Path B's float."
       },
       "concept_tested": "Float calculation and critical path identification",
       "source": "original"
@@ -37,16 +37,16 @@
       "type": "scenario",
       "question": "A project has a Budget at Completion (BAC) of $200,000. At the current reporting date, Earned Value (EV) is $80,000 and Actual Cost (AC) is $100,000. What is the Cost Performance Index (CPI), and what does it indicate?",
       "options": {
-        "A": "CPI = 1.25; the project is under budget",
-        "B": "CPI = 0.8; the project is over budget",
+        "B": "CPI = 1.25; the project is under budget",
+        "A": "CPI = 0.8; the project is over budget",
         "C": "CPI = 0.8; the project is under budget",
         "D": "CPI = 1.25; the project is over budget"
       },
-      "correct_answer": "B",
-      "explanation": "CPI = EV / AC = 80,000 / 100,000 = 0.8. A CPI below 1.0 means the project is over budget — spending more than the value of work earned.",
+      "correct_answer": "A",
+      "explanation": "CPI = EV / AC = 80,000 / 100,000 = 0.8. A CPI below 1.0 means the project is over budget \u2014 spending more than the value of work earned.",
       "why_others_are_wrong": {
-        "A": "The calculation is incorrect; 80,000/100,000 = 0.8, not 1.25, and 0.8 indicates over budget, not under.",
-        "C": "While the CPI value of 0.8 is correct, this misinterprets it — a CPI below 1.0 means over budget, not under.",
+        "B": "The calculation is incorrect; 80,000/100,000 = 0.8, not 1.25, and 0.8 indicates over budget, not under.",
+        "C": "While the CPI value of 0.8 is correct, this misinterprets it \u2014 a CPI below 1.0 means over budget, not under.",
         "D": "Both the value and interpretation are incorrect."
       },
       "concept_tested": "CPI calculation and interpretation",
@@ -61,15 +61,15 @@
       "question": "A project team identifies a risk that a key supplier may go out of business during the project. They decide to purchase insurance to cover potential losses if this occurs. Which risk response strategy is this?",
       "options": {
         "A": "Avoid",
-        "B": "Mitigate",
-        "C": "Transfer",
+        "C": "Mitigate",
+        "B": "Transfer",
         "D": "Accept"
       },
-      "correct_answer": "C",
+      "correct_answer": "B",
       "explanation": "Transfer involves shifting the impact of a risk (and ownership of the response) to a third party, such as through insurance, warranties, or outsourcing.",
       "why_others_are_wrong": {
-        "A": "Avoid means eliminating the threat entirely, such as changing suppliers — not applicable here since the risk still exists.",
-        "B": "Mitigate means reducing probability or impact directly (e.g., diversifying suppliers), not shifting it to a third party.",
+        "A": "Avoid means eliminating the threat entirely, such as changing suppliers \u2014 not applicable here since the risk still exists.",
+        "C": "Mitigate means reducing probability or impact directly (e.g., diversifying suppliers), not shifting it to a third party.",
         "D": "Accept means acknowledging the risk without proactive action; purchasing insurance is a proactive transfer action."
       },
       "concept_tested": "Risk response strategies for threats",
@@ -84,15 +84,15 @@
       "question": "A project is behind schedule. The project manager decides to add three additional developers to the critical path activities to finish faster, understanding this will increase costs. What schedule compression technique is being used?",
       "options": {
         "A": "Fast tracking",
-        "B": "Crashing",
-        "C": "Resource leveling",
+        "C": "Crashing",
+        "B": "Resource leveling",
         "D": "Critical chain method"
       },
-      "correct_answer": "B",
+      "correct_answer": "C",
       "explanation": "Crashing involves adding resources to critical path activities to shorten duration, typically increasing cost.",
       "why_others_are_wrong": {
         "A": "Fast tracking involves performing activities in parallel that were originally sequential, not adding resources.",
-        "C": "Resource leveling adjusts the schedule to resolve resource over-allocation, not to compress the timeline.",
+        "B": "Resource leveling adjusts the schedule to resolve resource over-allocation, not to compress the timeline.",
         "D": "Critical chain method focuses on managing resource constraints via buffers, not simply adding staff."
       },
       "concept_tested": "Schedule compression: crashing vs fast tracking",
@@ -107,16 +107,16 @@
       "question": "What is the primary difference between Quality Assurance (QA) and Quality Control (QC)?",
       "options": {
         "A": "QA is product-focused; QC is process-focused",
-        "B": "QA is process-focused and proactive; QC is product-focused and involves inspection",
-        "C": "QA and QC are the same activity performed at different times",
-        "D": "QC happens before QA in the project life cycle"
+        "D": "QA is process-focused and proactive; QC is product-focused and involves inspection",
+        "B": "QA and QC are the same activity performed at different times",
+        "C": "QC happens before QA in the project life cycle"
       },
-      "correct_answer": "B",
+      "correct_answer": "D",
       "explanation": "Quality Assurance focuses on the processes used to ensure quality standards are met (proactive), while Quality Control focuses on inspecting the actual deliverables/products for defects (reactive/inspective).",
       "why_others_are_wrong": {
         "A": "This reverses the correct definitions.",
-        "C": "QA and QC are distinct activities with different focuses, not the same activity.",
-        "D": "QA activities generally happen throughout execution, while QC is applied to completed deliverables; QC doesn't necessarily precede QA."
+        "B": "QA and QC are distinct activities with different focuses, not the same activity.",
+        "C": "QA activities generally happen throughout execution, while QC is applied to completed deliverables; QC doesn't necessarily precede QA."
       },
       "concept_tested": "Quality Assurance vs Quality Control",
       "source": "original"
@@ -127,18 +127,18 @@
       "topic": "Cost Estimating",
       "difficulty": "medium",
       "type": "scenario",
-      "question": "A project estimator uses the formula (Optimistic + 4×Most Likely + Pessimistic) / 6 to calculate an activity's expected duration. Which estimating technique is being applied?",
+      "question": "A project estimator uses the formula (Optimistic + 4\u00d7Most Likely + Pessimistic) / 6 to calculate an activity's expected duration. Which estimating technique is being applied?",
       "options": {
-        "A": "Analogous estimating",
-        "B": "Parametric estimating",
-        "C": "Three-point estimating (PERT)",
+        "B": "Analogous estimating",
+        "C": "Parametric estimating",
+        "A": "Three-point estimating (PERT)",
         "D": "Bottom-up estimating"
       },
-      "correct_answer": "C",
+      "correct_answer": "A",
       "explanation": "This formula is the PERT (Program Evaluation and Review Technique) weighted average, a form of three-point estimating that accounts for uncertainty using optimistic, most likely, and pessimistic estimates.",
       "why_others_are_wrong": {
-        "A": "Analogous estimating uses historical data from similar projects without this specific formula.",
-        "B": "Parametric estimating uses a statistical relationship between variables (e.g., cost per unit), not this three-point weighted formula.",
+        "B": "Analogous estimating uses historical data from similar projects without this specific formula.",
+        "C": "Parametric estimating uses a statistical relationship between variables (e.g., cost per unit), not this three-point weighted formula.",
         "D": "Bottom-up estimating sums estimates of individual work packages; it does not use this weighted average formula."
       },
       "concept_tested": "Three-point (PERT) estimating formula",
@@ -153,15 +153,15 @@
       "question": "A buyer wants to minimize their own financial risk on a project with a very well-defined scope of work. Which contract type best serves this goal?",
       "options": {
         "A": "Cost Reimbursable (CR)",
-        "B": "Time and Materials (T&M)",
-        "C": "Fixed Price (FP)",
+        "C": "Time and Materials (T&M)",
+        "B": "Fixed Price (FP)",
         "D": "Cost Plus Percentage of Cost"
       },
-      "correct_answer": "C",
+      "correct_answer": "B",
       "explanation": "Fixed Price contracts place most of the risk on the seller, since the price is set regardless of the seller's actual costs. This minimizes the buyer's financial risk, and works well when scope is well-defined.",
       "why_others_are_wrong": {
-        "A": "Cost Reimbursable contracts place more risk on the buyer, who pays actual costs plus a fee — the opposite of minimizing buyer risk.",
-        "B": "Time and Materials contracts carry medium risk for both parties, less predictable for the buyer than Fixed Price.",
+        "A": "Cost Reimbursable contracts place more risk on the buyer, who pays actual costs plus a fee \u2014 the opposite of minimizing buyer risk.",
+        "C": "Time and Materials contracts carry medium risk for both parties, less predictable for the buyer than Fixed Price.",
         "D": "Cost Plus Percentage of Cost places significant risk on the buyer and is generally discouraged since it removes incentive for the seller to control costs."
       },
       "concept_tested": "Contract types and risk allocation",
@@ -198,17 +198,17 @@
       "type": "knowledge",
       "question": "In a Finish-to-Start (FS) dependency, what must happen before the successor activity can begin?",
       "options": {
-        "A": "The successor activity's predecessor must finish",
-        "B": "The successor activity must start at the same time as its predecessor",
-        "C": "The predecessor activity must start, not necessarily finish",
-        "D": "No relationship exists between the two activities"
+        "D": "The successor activity's predecessor must finish",
+        "A": "The successor activity must start at the same time as its predecessor",
+        "B": "The predecessor activity must start, not necessarily finish",
+        "C": "No relationship exists between the two activities"
       },
-      "correct_answer": "A",
+      "correct_answer": "D",
       "explanation": "In a Finish-to-Start relationship, the successor activity cannot start until the predecessor activity finishes. This is the most common type of dependency.",
       "why_others_are_wrong": {
-        "B": "This describes a Start-to-Start (SS) relationship, not Finish-to-Start.",
-        "C": "This also describes Start-to-Start, not Finish-to-Start.",
-        "D": "A defined dependency relationship by definition indicates there IS a relationship between the activities."
+        "A": "This describes a Start-to-Start (SS) relationship, not Finish-to-Start.",
+        "B": "This also describes Start-to-Start, not Finish-to-Start.",
+        "C": "A defined dependency relationship by definition indicates there IS a relationship between the activities."
       },
       "concept_tested": "Finish-to-Start dependency type",
       "source": "original"
@@ -221,15 +221,15 @@
       "type": "scenario",
       "question": "A project's Schedule Performance Index (SPI) is 0.75. What does this indicate about the project?",
       "options": {
-        "A": "The project is ahead of schedule, completing 125% of planned work",
-        "B": "The project is behind schedule, completing only 75% of the work that was planned by this point",
+        "B": "The project is ahead of schedule, completing 125% of planned work",
+        "A": "The project is behind schedule, completing only 75% of the work that was planned by this point",
         "C": "The project is exactly on schedule",
         "D": "SPI has no relationship to schedule performance"
       },
-      "correct_answer": "B",
+      "correct_answer": "A",
       "explanation": "SPI = EV/PV. An SPI of 0.75 means the project has earned only 75% of the value that was planned to be earned by this point, indicating the project is behind schedule.",
       "why_others_are_wrong": {
-        "A": "An SPI of 0.75 (below 1.0) indicates behind schedule, not ahead.",
+        "B": "An SPI of 0.75 (below 1.0) indicates behind schedule, not ahead.",
         "C": "An SPI of exactly 1.0 would indicate on schedule; 0.75 indicates behind schedule.",
         "D": "SPI is specifically designed to measure schedule performance/efficiency."
       },
@@ -250,7 +250,7 @@
         "D": "Accept"
       },
       "correct_answer": "B",
-      "explanation": "Enhance is used for positive risks (opportunities) to increase the probability and/or impact of the opportunity occurring — running a pilot to increase confidence and likelihood fits this strategy.",
+      "explanation": "Enhance is used for positive risks (opportunities) to increase the probability and/or impact of the opportunity occurring \u2014 running a pilot to increase confidence and likelihood fits this strategy.",
       "why_others_are_wrong": {
         "A": "Exploit seeks to ensure the opportunity definitely happens (eliminate uncertainty), which is a stronger action than piloting to increase likelihood.",
         "C": "Share involves allocating ownership of the opportunity to a third party better able to capture it, not applicable here.",
@@ -269,11 +269,11 @@
       "options": {
         "A": "Path 1 (10 days)",
         "B": "Path 3 (12 days)",
-        "C": "Path 2 (14 days) — the critical path",
+        "C": "Path 2 (14 days) \u2014 the critical path",
         "D": "All three paths equally, since they all lead to the same milestone"
       },
       "correct_answer": "C",
-      "explanation": "The critical path is the longest path through the network (14 days here), and its activities have zero float — meaning zero flexibility without delaying the project.",
+      "explanation": "The critical path is the longest path through the network (14 days here), and its activities have zero float \u2014 meaning zero flexibility without delaying the project.",
       "why_others_are_wrong": {
         "A": "Path 1 has the most slack (4 days of float relative to Path 2) and is not the critical path.",
         "B": "Path 3 has some float (2 days relative to Path 2) and is not the critical path.",
@@ -292,15 +292,15 @@
       "options": {
         "A": "Analogous estimating",
         "B": "Parametric estimating",
-        "C": "Bottom-up estimating",
-        "D": "Rough Order of Magnitude (ROM) estimating"
+        "D": "Bottom-up estimating",
+        "C": "Rough Order of Magnitude (ROM) estimating"
       },
-      "correct_answer": "C",
+      "correct_answer": "D",
       "explanation": "Bottom-up estimating involves estimating individual work packages in detail and aggregating them, producing the most accurate estimate at the cost of significant time and effort.",
       "why_others_are_wrong": {
         "A": "Analogous estimating is fast but less accurate, relying on historical data from similar projects (top-down).",
         "B": "Parametric estimating is moderately accurate and faster than bottom-up, using statistical relationships.",
-        "D": "ROM estimating is a rough, early-stage estimate with low accuracy, used for initial feasibility, not detailed planning."
+        "C": "ROM estimating is a rough, early-stage estimate with low accuracy, used for initial feasibility, not detailed planning."
       },
       "concept_tested": "Cost estimating technique accuracy vs effort tradeoff",
       "source": "original"

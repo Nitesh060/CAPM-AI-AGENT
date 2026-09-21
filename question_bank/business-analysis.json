@@ -14,16 +14,16 @@
       "type": "scenario",
       "question": "A company is deciding between two projects. Project X has an NPV of $45,000. Project Y has an NPV of $60,000, but the company can only fund one. What is the opportunity cost of choosing Project X?",
       "options": {
-        "A": "$45,000",
-        "B": "$15,000",
-        "C": "$60,000",
+        "B": "$45,000",
+        "C": "$15,000",
+        "A": "$60,000",
         "D": "$105,000"
       },
-      "correct_answer": "C",
+      "correct_answer": "A",
       "explanation": "Opportunity cost is the value of the best alternative foregone. If the company chooses Project X, the opportunity cost is the value of Project Y ($60,000) that was given up.",
       "why_others_are_wrong": {
-        "A": "$45,000 is Project X's own NPV, not the cost of forgoing the alternative.",
-        "B": "$15,000 is the difference between the two NPVs, which is not how opportunity cost is defined.",
+        "B": "$45,000 is Project X's own NPV, not the cost of forgoing the alternative.",
+        "C": "$15,000 is the difference between the two NPVs, which is not how opportunity cost is defined.",
         "D": "$105,000 is the sum of both NPVs, not relevant to opportunity cost."
       },
       "concept_tested": "Opportunity cost concept",
@@ -61,15 +61,15 @@
       "question": "A stakeholder states: 'The new system must process at least 10,000 transactions per second and be available 99.9% of the time.' What type of requirement is this?",
       "options": {
         "A": "Functional requirement",
-        "B": "Non-functional requirement",
-        "C": "Business requirement",
+        "C": "Non-functional requirement",
+        "B": "Business requirement",
         "D": "Transition requirement"
       },
-      "correct_answer": "B",
-      "explanation": "Non-functional requirements describe quality attributes of a system, such as performance, availability, security, and usability — as opposed to specific features.",
+      "correct_answer": "C",
+      "explanation": "Non-functional requirements describe quality attributes of a system, such as performance, availability, security, and usability \u2014 as opposed to specific features.",
       "why_others_are_wrong": {
         "A": "Functional requirements describe what the system should DO (specific features/behaviors), not performance/availability characteristics.",
-        "C": "Business requirements are high-level organizational needs (e.g., 'increase market share'), not detailed technical performance specs.",
+        "B": "Business requirements are high-level organizational needs (e.g., 'increase market share'), not detailed technical performance specs.",
         "D": "Transition requirements describe temporary capabilities needed to move from current to future state, unrelated to system performance specs."
       },
       "concept_tested": "Functional vs non-functional requirements",
@@ -83,17 +83,17 @@
       "type": "knowledge",
       "question": "Which of the following correctly represents the hierarchy from broadest to most specific in organizational strategy alignment?",
       "options": {
-        "A": "Project → Program → Portfolio → Strategy",
-        "B": "Strategy → Portfolio → Program → Project",
-        "C": "Portfolio → Strategy → Project → Program",
-        "D": "Program → Project → Strategy → Portfolio"
+        "A": "Project \u2192 Program \u2192 Portfolio \u2192 Strategy",
+        "D": "Strategy \u2192 Portfolio \u2192 Program \u2192 Project",
+        "B": "Portfolio \u2192 Strategy \u2192 Project \u2192 Program",
+        "C": "Program \u2192 Project \u2192 Strategy \u2192 Portfolio"
       },
-      "correct_answer": "B",
+      "correct_answer": "D",
       "explanation": "Organizational strategy is set at the top, cascading down to portfolios (collections of programs/projects aligned to strategy), then programs (related projects managed together), then individual projects.",
       "why_others_are_wrong": {
         "A": "This reverses the hierarchy entirely, starting from the most specific rather than the broadest.",
-        "C": "This mixes the order incorrectly; strategy should be at the top, not in the middle.",
-        "D": "This is also out of order; projects should be more specific than programs, which come after portfolios and strategy."
+        "B": "This mixes the order incorrectly; strategy should be at the top, not in the middle.",
+        "C": "This is also out of order; projects should be more specific than programs, which come after portfolios and strategy."
       },
       "concept_tested": "Strategic alignment hierarchy",
       "source": "original"
@@ -106,15 +106,15 @@
       "type": "scenario",
       "question": "A sponsor asks the project team to justify a new CRM system investment before formal approval. What document should the team prepare to provide this justification?",
       "options": {
-        "A": "Project Charter",
-        "B": "Business Case",
+        "B": "Project Charter",
+        "A": "Business Case",
         "C": "Risk Register",
         "D": "Stakeholder Register"
       },
-      "correct_answer": "B",
-      "explanation": "A Business Case documents the justification for a proposed project, including the business need, situation analysis, options considered, and cost-benefit/financial analysis — exactly what's needed to justify an investment before approval.",
+      "correct_answer": "A",
+      "explanation": "A Business Case documents the justification for a proposed project, including the business need, situation analysis, options considered, and cost-benefit/financial analysis \u2014 exactly what's needed to justify an investment before approval.",
       "why_others_are_wrong": {
-        "A": "The Project Charter formally authorizes the project after approval; it doesn't provide the initial financial/business justification.",
+        "B": "The Project Charter formally authorizes the project after approval; it doesn't provide the initial financial/business justification.",
         "C": "The Risk Register lists identified risks and responses, not investment justification.",
         "D": "The Stakeholder Register lists stakeholders and their information, unrelated to financial justification."
       },
@@ -130,15 +130,15 @@
       "question": "Which of the following is an example of INTANGIBLE project value?",
       "options": {
         "A": "Increased revenue",
-        "B": "Reduced operating costs",
-        "C": "Improved brand reputation",
+        "C": "Reduced operating costs",
+        "B": "Improved brand reputation",
         "D": "Higher stock price"
       },
-      "correct_answer": "C",
-      "explanation": "Intangible value includes non-monetary benefits like reputation, goodwill, brand recognition, and strategic alignment — things that add value but aren't directly measured in currency.",
+      "correct_answer": "B",
+      "explanation": "Intangible value includes non-monetary benefits like reputation, goodwill, brand recognition, and strategic alignment \u2014 things that add value but aren't directly measured in currency.",
       "why_others_are_wrong": {
         "A": "Increased revenue is a tangible, directly measurable monetary benefit.",
-        "B": "Reduced operating costs is also tangible and monetarily quantifiable.",
+        "C": "Reduced operating costs is also tangible and monetarily quantifiable.",
         "D": "Higher stock price is a tangible, measurable financial metric."
       },
       "concept_tested": "Tangible vs intangible value",
@@ -153,15 +153,15 @@
       "question": "A quality auditor wants to verify that every requirement gathered at project initiation was eventually tested and delivered. Which tool should they use?",
       "options": {
         "A": "Risk Register",
-        "B": "Requirements Traceability Matrix (RTM)",
-        "C": "Gantt Chart",
+        "C": "Requirements Traceability Matrix (RTM)",
+        "B": "Gantt Chart",
         "D": "SWOT Analysis"
       },
-      "correct_answer": "B",
+      "correct_answer": "C",
       "explanation": "A Requirements Traceability Matrix links each requirement from its origin through design, development, and testing, ensuring every requirement is accounted for and validated.",
       "why_others_are_wrong": {
         "A": "The Risk Register tracks risks, not requirement fulfillment/traceability.",
-        "C": "A Gantt Chart visualizes schedule timing, not requirement traceability.",
+        "B": "A Gantt Chart visualizes schedule timing, not requirement traceability.",
         "D": "SWOT Analysis is a strategic planning tool for strengths/weaknesses/opportunities/threats, unrelated to requirement tracing."
       },
       "concept_tested": "Requirements Traceability Matrix purpose",
@@ -176,16 +176,16 @@
       "question": "Project Alpha has an NPV of $0 exactly at a 10% discount rate. What does this indicate about the project's Internal Rate of Return (IRR)?",
       "options": {
         "A": "The IRR is less than 10%",
-        "B": "The IRR equals 10%",
-        "C": "The IRR is greater than 10%",
-        "D": "IRR cannot be determined from this information"
+        "D": "The IRR equals 10%",
+        "B": "The IRR is greater than 10%",
+        "C": "IRR cannot be determined from this information"
       },
-      "correct_answer": "B",
+      "correct_answer": "D",
       "explanation": "IRR is defined as the discount rate at which NPV equals zero. If NPV = 0 at a 10% discount rate, then by definition the IRR is 10%.",
       "why_others_are_wrong": {
         "A": "If IRR were less than 10%, NPV at a 10% discount rate would be negative, not zero.",
-        "C": "If IRR were greater than 10%, NPV at a 10% discount rate would be positive, not zero.",
-        "D": "This is directly determinable — NPV = 0 at a given rate defines that rate as the IRR."
+        "B": "If IRR were greater than 10%, NPV at a 10% discount rate would be positive, not zero.",
+        "C": "This is directly determinable \u2014 NPV = 0 at a given rate defines that rate as the IRR."
       },
       "concept_tested": "Relationship between NPV and IRR",
       "source": "original"
@@ -198,16 +198,16 @@
       "type": "scenario",
       "question": "Employees understand why a new system is being implemented and want to support it, but lack the specific training to use it effectively. Using the ADKAR model, which stage should the organization focus on next?",
       "options": {
-        "A": "Awareness",
-        "B": "Desire",
-        "C": "Knowledge",
+        "B": "Awareness",
+        "C": "Desire",
+        "A": "Knowledge",
         "D": "Reinforcement"
       },
-      "correct_answer": "C",
-      "explanation": "ADKAR stages: Awareness → Desire → Knowledge → Ability → Reinforcement. Since employees already have Awareness and Desire but lack specific training/know-how, the next focus should be Knowledge (providing training on how to use the new system).",
+      "correct_answer": "A",
+      "explanation": "ADKAR stages: Awareness \u2192 Desire \u2192 Knowledge \u2192 Ability \u2192 Reinforcement. Since employees already have Awareness and Desire but lack specific training/know-how, the next focus should be Knowledge (providing training on how to use the new system).",
       "why_others_are_wrong": {
-        "A": "Employees already understand why the change is happening (Awareness is achieved).",
-        "B": "Employees already want to support the change (Desire is achieved).",
+        "B": "Employees already understand why the change is happening (Awareness is achieved).",
+        "C": "Employees already want to support the change (Desire is achieved).",
         "D": "Reinforcement comes after Ability is achieved; skipping Knowledge and Ability would be premature."
       },
       "concept_tested": "ADKAR change management model stages",
@@ -227,11 +227,11 @@
         "D": "Benefits realization always happens before project closure, never after"
       },
       "correct_answer": "B",
-      "explanation": "Many benefits take time to materialize after a solution is deployed — for example, cost savings or revenue increases may only be measurable months after go-live. Benefits realization tracking often extends beyond project closure into operations.",
+      "explanation": "Many benefits take time to materialize after a solution is deployed \u2014 for example, cost savings or revenue increases may only be measurable months after go-live. Benefits realization tracking often extends beyond project closure into operations.",
       "why_others_are_wrong": {
         "A": "This is not a real requirement and mischaracterizes project manager obligations.",
         "C": "The charter authorizes the project; it doesn't specifically mandate post-closure benefits tracking (though a Benefits Management Plan might).",
-        "D": "This is factually incorrect — many benefits are realized only after project closure, once deliverables are in use."
+        "D": "This is factually incorrect \u2014 many benefits are realized only after project closure, once deliverables are in use."
       },
       "concept_tested": "Benefits realization timing",
       "source": "original"
@@ -245,15 +245,15 @@
       "question": "Using the Stakeholder Engagement Assessment Matrix, a key stakeholder is currently 'Resistant' to the project but the PM needs them to become 'Supportive.' What should the PM do?",
       "options": {
         "A": "Avoid all communication with this stakeholder to prevent conflict",
-        "B": "Develop targeted engagement strategies to address concerns and move them toward the desired 'Supportive' engagement level",
-        "C": "Escalate immediately to terminate the project",
+        "C": "Develop targeted engagement strategies to address concerns and move them toward the desired 'Supportive' engagement level",
+        "B": "Escalate immediately to terminate the project",
         "D": "Assume the stakeholder's position will never change and ignore the gap"
       },
-      "correct_answer": "B",
-      "explanation": "The Stakeholder Engagement Assessment Matrix compares current vs desired engagement levels. When a gap exists (e.g., Resistant vs desired Supportive), the PM should develop specific strategies — communication, addressing concerns, involvement — to close that gap.",
+      "correct_answer": "C",
+      "explanation": "The Stakeholder Engagement Assessment Matrix compares current vs desired engagement levels. When a gap exists (e.g., Resistant vs desired Supportive), the PM should develop specific strategies \u2014 communication, addressing concerns, involvement \u2014 to close that gap.",
       "why_others_are_wrong": {
         "A": "Avoiding communication with a resistant stakeholder typically worsens the relationship rather than improving it.",
-        "C": "Escalating to terminate the project is an extreme, disproportionate response to one resistant stakeholder.",
+        "B": "Escalating to terminate the project is an extreme, disproportionate response to one resistant stakeholder.",
         "D": "Ignoring the gap defeats the purpose of using the assessment matrix, which is meant to drive proactive engagement planning."
       },
       "concept_tested": "Stakeholder Engagement Assessment Matrix usage",

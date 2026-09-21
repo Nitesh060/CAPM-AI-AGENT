@@ -15,16 +15,16 @@
       "question": "Which of the following best distinguishes a project from ongoing operations?",
       "options": {
         "A": "Projects are repetitive while operations are unique",
-        "B": "Projects are temporary with a definite end, while operations are ongoing",
-        "C": "Projects never require a budget, while operations always do",
-        "D": "Operations always cost more than projects"
+        "D": "Projects are temporary with a definite end, while operations are ongoing",
+        "B": "Projects never require a budget, while operations always do",
+        "C": "Operations always cost more than projects"
       },
-      "correct_answer": "B",
+      "correct_answer": "D",
       "explanation": "A project is a temporary endeavor with a definite beginning and end, undertaken to create a unique product, service, or result. Operations are ongoing and repetitive.",
       "why_others_are_wrong": {
-        "A": "This reverses the definitions — projects are unique, operations are repetitive.",
-        "C": "Both projects and operations typically require budgets.",
-        "D": "Cost comparison is not a defining characteristic distinguishing the two."
+        "A": "This reverses the definitions \u2014 projects are unique, operations are repetitive.",
+        "B": "Both projects and operations typically require budgets.",
+        "C": "Cost comparison is not a defining characteristic distinguishing the two."
       },
       "concept_tested": "Project vs Operations distinction",
       "source": "original"
@@ -37,16 +37,16 @@
       "type": "scenario",
       "question": "Maria is a project manager working on a new product launch. She has almost no formal authority over the team members, who report primarily to their functional department heads and are only borrowed part-time for her project. What type of organizational structure is Maria most likely working in?",
       "options": {
-        "A": "Projectized organization",
-        "B": "Strong matrix organization",
-        "C": "Functional organization",
+        "B": "Projectized organization",
+        "C": "Strong matrix organization",
+        "A": "Functional organization",
         "D": "Balanced matrix organization"
       },
-      "correct_answer": "C",
+      "correct_answer": "A",
       "explanation": "In a functional organization, the project manager has little to no formal authority, and team members report to their functional managers, who control resources and priorities.",
       "why_others_are_wrong": {
-        "A": "In a projectized organization, the PM has high to almost total authority — the opposite of Maria's situation.",
-        "B": "In a strong matrix, the PM has significant, though not total, authority — more than described here.",
+        "B": "In a projectized organization, the PM has high to almost total authority \u2014 the opposite of Maria's situation.",
+        "C": "In a strong matrix, the PM has significant, though not total, authority \u2014 more than described here.",
         "D": "In a balanced matrix, authority is shared roughly equally between PM and functional manager, not minimal as described."
       },
       "concept_tested": "Organizational structure impact on PM authority",
@@ -84,15 +84,15 @@
       "question": "A sponsor asks the project team to deliver the project two months earlier than planned, but is unwilling to reduce scope or increase budget. According to the triple constraint model, what is the most likely consequence?",
       "options": {
         "A": "Nothing will change; schedules are independent of other constraints",
-        "B": "Quality or risk exposure is likely to be impacted since scope and cost remain fixed",
-        "C": "The project's scope will automatically increase",
+        "C": "Quality or risk exposure is likely to be impacted since scope and cost remain fixed",
+        "B": "The project's scope will automatically increase",
         "D": "The team will need to work fewer hours"
       },
-      "correct_answer": "B",
+      "correct_answer": "C",
       "explanation": "The triple constraint (scope, time, cost) are interrelated. If time is compressed without adjusting scope or cost, quality often suffers, or the team takes on more risk (e.g., through fast tracking) to compensate.",
       "why_others_are_wrong": {
-        "A": "The constraints are interdependent, not independent — changing one affects others.",
-        "C": "Scope does not automatically increase due to compressed schedule; it usually stays fixed or is reduced.",
+        "A": "The constraints are interdependent, not independent \u2014 changing one affects others.",
+        "B": "Scope does not automatically increase due to compressed schedule; it usually stays fixed or is reduced.",
         "D": "Meeting an earlier deadline typically requires more effort/hours, not fewer."
       },
       "concept_tested": "Triple constraint interdependency",
@@ -107,16 +107,16 @@
       "question": "The PMI Talent Triangle consists of which three skill sets?",
       "options": {
         "A": "Budgeting, Scheduling, and Risk Management",
-        "B": "Technical Project Management, Leadership, and Strategic and Business Management",
-        "C": "Communication, Negotiation, and Conflict Resolution",
-        "D": "Agile, Predictive, and Hybrid methodologies"
+        "D": "Technical Project Management, Leadership, and Strategic and Business Management",
+        "B": "Communication, Negotiation, and Conflict Resolution",
+        "C": "Agile, Predictive, and Hybrid methodologies"
       },
-      "correct_answer": "B",
+      "correct_answer": "D",
       "explanation": "The PMI Talent Triangle identifies three essential skill sets for project managers: Technical Project Management, Leadership, and Strategic and Business Management.",
       "why_others_are_wrong": {
         "A": "These are specific PM techniques/knowledge areas, not the three broad skill sets of the Talent Triangle.",
-        "C": "These are important soft skills but are subsets of Leadership, not the Triangle's three categories.",
-        "D": "These are approaches/methodologies, not skill sets."
+        "B": "These are important soft skills but are subsets of Leadership, not the Triangle's three categories.",
+        "C": "These are approaches/methodologies, not skill sets."
       },
       "concept_tested": "PMI Talent Triangle components",
       "source": "original"
@@ -129,13 +129,13 @@
       "type": "scenario",
       "question": "During WBS creation, a team lead wants to add a training activity that isn't tied to any specific deliverable but 'seems important.' What principle should guide whether this belongs in the WBS?",
       "options": {
-        "A": "The 100% Rule — the WBS must represent 100% of the deliverable-based scope, no more, no less",
+        "A": "The 100% Rule \u2014 the WBS must represent 100% of the deliverable-based scope, no more, no less",
         "B": "Activities should be added if the team lead has time available",
         "C": "The WBS should include every possible task regardless of deliverables",
         "D": "Only cost-related items belong in the WBS"
       },
       "correct_answer": "A",
-      "explanation": "The 100% Rule states the WBS must capture the total scope of the project — including all deliverables — and nothing more. An activity not tied to a deliverable within scope should not simply be added because it 'seems important'; it should go through scope change control if genuinely needed.",
+      "explanation": "The 100% Rule states the WBS must capture the total scope of the project \u2014 including all deliverables \u2014 and nothing more. An activity not tied to a deliverable within scope should not simply be added because it 'seems important'; it should go through scope change control if genuinely needed.",
       "why_others_are_wrong": {
         "B": "Availability of time is irrelevant to WBS scope inclusion criteria.",
         "C": "The WBS represents deliverables, not an exhaustive list of every conceivable task.",
@@ -153,16 +153,16 @@
       "question": "Which process group involves formally accepting the completed product and releasing project resources?",
       "options": {
         "A": "Initiating",
-        "B": "Executing",
-        "C": "Monitoring and Controlling",
-        "D": "Closing"
+        "C": "Executing",
+        "D": "Monitoring and Controlling",
+        "B": "Closing"
       },
-      "correct_answer": "D",
+      "correct_answer": "B",
       "explanation": "The Closing process group involves finalizing all activities, obtaining formal acceptance of deliverables, and releasing project resources.",
       "why_others_are_wrong": {
         "A": "Initiating is about starting the project/phase and authorizing work, not ending it.",
-        "B": "Executing focuses on performing the work defined in the project plan.",
-        "C": "Monitoring and Controlling tracks progress and manages changes throughout the project, not final closure."
+        "C": "Executing focuses on performing the work defined in the project plan.",
+        "D": "Monitoring and Controlling tracks progress and manages changes throughout the project, not final closure."
       },
       "concept_tested": "Process groups and their purposes",
       "source": "original"
@@ -176,15 +176,15 @@
       "question": "A regulatory agency has significant power to halt a construction project but has shown little interest in day-to-day activities so far. Using the Power/Interest grid, how should the project manager engage this stakeholder?",
       "options": {
         "A": "Ignore them since they show low interest",
-        "B": "Keep them satisfied — monitor closely and ensure their needs are met without overwhelming them with details",
-        "C": "Manage them closely with daily detailed updates",
+        "C": "Keep them satisfied \u2014 monitor closely and ensure their needs are met without overwhelming them with details",
+        "B": "Manage them closely with daily detailed updates",
         "D": "Only inform them after the project is complete"
       },
-      "correct_answer": "B",
+      "correct_answer": "C",
       "explanation": "Stakeholders with high power but low interest fall into the 'Keep Satisfied' quadrant of the Power/Interest grid. The PM should ensure their key concerns are addressed without excessive engagement that could waste their time or the team's.",
       "why_others_are_wrong": {
-        "A": "High-power stakeholders should never be ignored, even with low current interest — their power means they could significantly impact the project.",
-        "C": "Daily detailed updates are appropriate for high-power, high-interest stakeholders (Manage Closely), not this quadrant.",
+        "A": "High-power stakeholders should never be ignored, even with low current interest \u2014 their power means they could significantly impact the project.",
+        "B": "Daily detailed updates are appropriate for high-power, high-interest stakeholders (Manage Closely), not this quadrant.",
         "D": "Waiting until project completion to engage a high-power stakeholder is risky and could jeopardize the project."
       },
       "concept_tested": "Power/Interest Grid stakeholder engagement strategy",
@@ -198,17 +198,17 @@
       "type": "knowledge",
       "question": "What does 'progressive elaboration' refer to in project management?",
       "options": {
-        "A": "Continuously improving and detailing a plan as more information becomes available",
-        "B": "Elaborating project risks only during the planning phase",
-        "C": "A technique used exclusively in Agile projects",
-        "D": "Adding scope to a project without formal approval"
+        "D": "Continuously improving and detailing a plan as more information becomes available",
+        "A": "Elaborating project risks only during the planning phase",
+        "B": "A technique used exclusively in Agile projects",
+        "C": "Adding scope to a project without formal approval"
       },
-      "correct_answer": "A",
+      "correct_answer": "D",
       "explanation": "Progressive elaboration is the iterative process of increasing the level of detail in a project management plan as greater amounts of information and more accurate estimates become available.",
       "why_others_are_wrong": {
-        "B": "Progressive elaboration applies throughout the project life cycle, not just planning.",
-        "C": "It applies to both predictive and agile approaches, not exclusively agile.",
-        "D": "This describes scope creep, which is uncontrolled and improper, unlike progressive elaboration."
+        "A": "Progressive elaboration applies throughout the project life cycle, not just planning.",
+        "B": "It applies to both predictive and agile approaches, not exclusively agile.",
+        "C": "This describes scope creep, which is uncontrolled and improper, unlike progressive elaboration."
       },
       "concept_tested": "Progressive elaboration concept",
       "source": "original"
@@ -221,16 +221,16 @@
       "type": "scenario",
       "question": "A company is launching a temporary, high-priority initiative where team members will be dedicated full-time and report directly to the project manager for the project's duration, with minimal functional manager involvement. Which organizational structure best fits this scenario?",
       "options": {
-        "A": "Functional organization",
-        "B": "Weak matrix organization",
-        "C": "Projectized organization",
+        "B": "Functional organization",
+        "C": "Weak matrix organization",
+        "A": "Projectized organization",
         "D": "Balanced matrix organization"
       },
-      "correct_answer": "C",
+      "correct_answer": "A",
       "explanation": "In a projectized organization, team members are dedicated full-time to the project and report directly to the project manager, who has high to almost total authority.",
       "why_others_are_wrong": {
-        "A": "In a functional organization, the PM has little authority and staff report to functional managers, not the PM.",
-        "B": "In a weak matrix, the PM has low authority and staff remain primarily under functional management.",
+        "B": "In a functional organization, the PM has little authority and staff report to functional managers, not the PM.",
+        "C": "In a weak matrix, the PM has low authority and staff remain primarily under functional management.",
         "D": "In a balanced matrix, authority and reporting are shared, not fully dedicated to the PM as described."
       },
       "concept_tested": "Identifying projectized organizational structure from scenario clues",
@@ -268,15 +268,15 @@
       "question": "A project manager plans the next two weeks of work in detailed tasks but only outlines future months at a high, summary level, intending to add detail closer to execution. What planning technique is being used?",
       "options": {
         "A": "Critical path method",
-        "B": "Rolling wave planning",
-        "C": "Fast tracking",
+        "C": "Rolling wave planning",
+        "B": "Fast tracking",
         "D": "Bottom-up estimating"
       },
-      "correct_answer": "B",
+      "correct_answer": "C",
       "explanation": "Rolling wave planning is a form of progressive elaboration where near-term work is planned in detail while future work is planned at a higher level, to be elaborated as it approaches.",
       "why_others_are_wrong": {
         "A": "Critical path method is a scheduling technique to determine project duration, unrelated to this level-of-detail approach.",
-        "C": "Fast tracking is a schedule compression technique involving parallel activities, not a planning detail approach.",
+        "B": "Fast tracking is a schedule compression technique involving parallel activities, not a planning detail approach.",
         "D": "Bottom-up estimating is a costing/estimating technique, not a planning horizon technique."
       },
       "concept_tested": "Rolling wave planning",
